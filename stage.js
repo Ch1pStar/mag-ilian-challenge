@@ -5,7 +5,7 @@
     var Graphics = PIXI.Graphics;
     var shapes = PIXI.animate.ShapesCache;
 
-    lib.son = Container.extend(function () {
+    lib.sun = Container.extend(function () {
         Container.call(this);
         var instance2 = new Graphics()
             .drawCommands(shapes.stage[1]);
@@ -31,10 +31,10 @@
             .drawCommands(shapes.stage[3]);
         var instance2 = new lib.Racket()
             .setTransform(813.85, 568.4);
-        this[instance2.name = "racket"] = instance2;
-        var instance1 = new lib.son()
+        this[instance2.name = "rocket"] = instance2;
+        var instance1 = new lib.sun()
             .setTransform(60.2, 53.5);
-        this[instance1.name = "son"] = instance1;
+        this[instance1.name = "sun"] = instance1;
         this.addChild(instance3, instance2, instance1);
     });
 

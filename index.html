@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Когато не можеш да вдигнеш ракетата</title>
+	<title>Dopamine challenge</title>
 	<meta charset="utf-8">
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
+	<script type="text/javascript" src="js/es6-check.js"></script>
 	<script type="text/javascript" src="js/pixi-animate.js"></script>
 	<script type="text/javascript" src="stage.js"></script>
+	<script type="text/javascript" src="js/Game.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 	<style type="text/css">
 		body {
@@ -14,10 +16,25 @@
 			padding: 0;
 			overflow: hidden;
 		}
+
+		textarea, input {
+			position: absolute;
+			bottom: 0;
+		}
 	</style>
 
 </head>
 <body>
+	<div id="game-container">
+		<textarea id="navigate-input" type="text" rows="10" cols="80">
+// data = {rocket = {x, y, rotation}, target = {x, y}, gravity, flare, meteor}
+let x = data.rocket.x - 3;
+let y = data.rocket.y - 3;
+let rotation = data.rocket.rotation - 0.006;
 
+return {x, y, rotation}
+		</textarea>
+		<input id="launch-button" type="button" value="LAUNCH"/>
+	</div>
 </body>
 </html>
