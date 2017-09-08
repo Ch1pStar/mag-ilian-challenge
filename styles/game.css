@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Menlo, Consolas, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace, serif;
+    background-color: black;
+}
+
+#canvas-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#canvas-container canvas {
+    width: 100%; // TODO height 100 based on ratio
+}
+
+#side-panel {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 440px;
+    height: 100%;
+    padding: 10px;
+    background-color: rgba(20,20,20,0.1);
+    opacity: 1;
+}
+
+#side-panel #show-side-panel {
+    width: 100px;
+    height: 50px;
+    left: -120px;
+    position: absolute;
+    opacity: 0;
+}
+
+#side-panel #code-container {
+    height: calc(100% - 120px);
+    width: 420px;
+}
+
+#side-panel #code-container .CodeMirror {
+    height: 100%;
+}
+
+#side-panel .label, #side-panel #launch-button {
+    height: 50px;
+    width: 420px;
+}
+
+#side-panel .label {
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#win-prompt {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    padding: 100px;
+    top: 50%;
+    left: 50%;
+    background-color: black;
+    display: none;
+}

@@ -1,40 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Dopamine challenge</title>
-	<meta charset="utf-8">
+    <title>Dope solver</title>
+    <meta charset="utf-8">
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
-	<script type="text/javascript" src="js/es6-check.js"></script>
-	<script type="text/javascript" src="js/pixi-animate.js"></script>
-	<script type="text/javascript" src="stage.js"></script>
-	<script type="text/javascript" src="js/Game.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
-	<style type="text/css">
-		body {
-			margin: 0;
-			padding: 0;
-			overflow: hidden;
-		}
+    <link rel="stylesheet" href="js/vendor/codemirror.css">
+    <link rel="stylesheet" href="js/vendor/monokai.css">
+    <link rel="stylesheet" href="styles/game.css">
 
-		textarea, input {
-			position: absolute;
-			bottom: 0;
-		}
-	</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/plugins/PixiPlugin.min.js"></script>
+
+    <script type="text/javascript" src="js/es6-check.js"></script>
+    <script type="text/javascript" src="js/vendor/pixi-animate.js"></script>
+    <script type="text/javascript" src="resources/stage.js"></script>
+
+    <script type="text/javascript" src="js/vendor/codemirror.js"></script>
+    <script type="text/javascript" src="js/vendor/javascript.js"></script>
+    <script type="text/javascript" src="js/Game.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
 
 </head>
 <body>
-	<div id="game-container">
-		<textarea id="navigate-input" type="text" rows="10" cols="80">
-// data = {rocket = {x, y, rotation}, target = {x, y}, gravity, flare, meteor}
-let x = data.rocket.x - 3;
-let y = data.rocket.y - 3;
-let rotation = data.rocket.rotation - 0.006;
 
-return {x, y, rotation}
-		</textarea>
-		<input id="launch-button" type="button" value="LAUNCH"/>
-	</div>
+    <div id="game-container">
+        <div id="canvas-container"></div>
+        <div id="side-panel">
+            <div class="label">Rocket navigator</div>
+            <div id="code-container"></div>
+            <input id="launch-button" type="button" value="LAUNCH"/>
+            <input id="show-side-panel" type="button" value="<<"/>
+        </div>
+    </div>
+
+    <div id="win-prompt">
+        <form method="POST" action="http://formspree.io/ilian.nikolov@gmail.com">
+            <input type="email" name="email" placeholder="email address">
+            <input type="hidden" name="_subject" value="Hack Conf submission" />
+            <input type="hidden" name="submission" value="">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
 </body>
 </html>
