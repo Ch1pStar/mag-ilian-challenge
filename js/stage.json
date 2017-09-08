@@ -1,0 +1,450 @@
+{
+	"Shapes" : [],
+	"Bitmaps" : [
+		{
+			"assetId" : 1,
+			"height" : 150,
+			"width" : 113,
+			"src" : "../images/rocket.png",
+			"name" : "rocket"
+		},
+		{
+			"assetId" : 3,
+			"height" : 313,
+			"width" : 319,
+			"src" : "../images/earth.png",
+			"name" : "earth"
+		},
+		{
+			"assetId" : 5,
+			"height" : 177,
+			"width" : 183,
+			"src" : "../images/mars.png",
+			"name" : "mars"
+		},
+		{
+			"assetId" : 7,
+			"height" : 650,
+			"width" : 649,
+			"src" : "../images/sun.png",
+			"name" : "sun"
+		},
+		{
+			"assetId" : 8,
+			"height" : 126,
+			"width" : 93,
+			"src" : "../images/flare1.png",
+			"name" : "flare1"
+		},
+		{
+			"assetId" : 9,
+			"height" : 288,
+			"width" : 158,
+			"src" : "../images/flare2.png",
+			"name" : "flare2"
+		},
+		{
+			"assetId" : 11,
+			"height" : 1634,
+			"width" : 2948,
+			"src" : "../images/stars2x.png",
+			"name" : "stars2x"
+		}
+	],
+	"Sounds" : [],
+	"Texts" : [],
+	"Timelines" : [
+		{
+			"assetId" : 2,
+			"type" : "movieclip",
+			"name" : "rocket",
+			"totalFrames" : 1,
+			"frames" : [
+				{
+					"frame" : 0,
+					"commands" : [
+						{
+							"type" : "Place",
+							"assetId" : 1,
+							"instanceId" : 1,
+							"placeAfter" : 0,
+							"transform" : {
+								"a" : 0,
+								"b" : -1,
+								"c" : 1,
+								"d" : 0,
+								"tx" : 0,
+								"ty" : 113
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"assetId" : 4,
+			"type" : "movieclip",
+			"name" : "earth",
+			"totalFrames" : 1,
+			"frames" : [
+				{
+					"frame" : 0,
+					"commands" : [
+						{
+							"type" : "Place",
+							"assetId" : 3,
+							"instanceId" : 1,
+							"placeAfter" : 0,
+							"transform" : {
+								"a" : 1,
+								"b" : 0,
+								"c" : 0,
+								"d" : 1,
+								"tx" : 0,
+								"ty" : 0
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"assetId" : 6,
+			"type" : "movieclip",
+			"name" : "sun",
+			"totalFrames" : 1,
+			"frames" : [
+				{
+					"frame" : 0,
+					"commands" : [
+						{
+							"type" : "Place",
+							"assetId" : 5,
+							"instanceId" : 1,
+							"placeAfter" : 0,
+							"transform" : {
+								"a" : 1,
+								"b" : 0,
+								"c" : 0,
+								"d" : 1,
+								"tx" : -125,
+								"ty" : -113
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"assetId" : 10,
+			"type" : "movieclip",
+			"name" : "Sun2",
+			"totalFrames" : 1,
+			"frames" : [
+				{
+					"frame" : 0,
+					"commands" : [
+						{
+							"type" : "Place",
+							"assetId" : 7,
+							"instanceId" : 1,
+							"placeAfter" : 0,
+							"transform" : {
+								"a" : 1,
+								"b" : 0,
+								"c" : 0,
+								"d" : 1,
+								"tx" : 0,
+								"ty" : 0
+							}
+						},
+						{
+							"type" : "Place",
+							"assetId" : 8,
+							"instanceId" : 2,
+							"placeAfter" : 1,
+							"transform" : {
+								"a" : 1,
+								"b" : 0,
+								"c" : 0,
+								"d" : 1,
+								"tx" : 437,
+								"ty" : 93
+							}
+						},
+						{
+							"type" : "Place",
+							"assetId" : 9,
+							"instanceId" : 3,
+							"placeAfter" : 2,
+							"transform" : {
+								"a" : 1,
+								"b" : 0,
+								"c" : 0,
+								"d" : 1,
+								"tx" : 404,
+								"ty" : -69
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"assetId" : 12,
+			"type" : "movieclip",
+			"name" : "background",
+			"totalFrames" : 1,
+			"frames" : [
+				{
+					"frame" : 0,
+					"commands" : [
+						{
+							"type" : "Place",
+							"assetId" : 11,
+							"instanceId" : 1,
+							"placeAfter" : 0,
+							"transform" : {
+								"a" : 0.651291,
+								"b" : 0,
+								"c" : 0,
+								"d" : 0.66095,
+								"tx" : -960,
+								"ty" : -572
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"type" : "stage",
+			"name" : "stage",
+			"totalFrames" : 1,
+			"frames" : [
+				{
+					"frame" : 0,
+					"commands" : [
+						{
+							"type" : "Place",
+							"assetId" : 2,
+							"instanceId" : 1,
+							"placeAfter" : 0,
+							"transform" : {
+								"a" : 1,
+								"b" : 0,
+								"c" : 0,
+								"d" : 1,
+								"tx" : 1580,
+								"ty" : 787
+							},
+							"instanceName" : "rocket",
+							"loop" : true
+						},
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 1,
+								"aA" : 0
+							}
+						},
+						{
+							"type" : "Visibility",
+							"instanceId" : 1,
+							"visibility" : true
+						},
+						{
+							"type" : "BlendMode",
+							"instanceId" : 1,
+							"blendMode" : "Normal"
+						},
+						{
+							"type" : "Place",
+							"assetId" : 4,
+							"instanceId" : 2,
+							"placeAfter" : 1,
+							"transform" : {
+								"a" : 1,
+								"b" : 0,
+								"c" : 0,
+								"d" : 1,
+								"tx" : 1601,
+								"ty" : 767
+							},
+							"instanceName" : "start",
+							"loop" : true
+						},
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 2,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 1,
+								"aA" : 0
+							}
+						},
+						{
+							"type" : "Visibility",
+							"instanceId" : 2,
+							"visibility" : true
+						},
+						{
+							"type" : "BlendMode",
+							"instanceId" : 2,
+							"blendMode" : "Normal"
+						},
+						{
+							"type" : "Place",
+							"assetId" : 6,
+							"instanceId" : 3,
+							"placeAfter" : 2,
+							"transform" : {
+								"a" : 1,
+								"b" : 0,
+								"c" : 0,
+								"d" : 1,
+								"tx" : 204,
+								"ty" : 192
+							},
+							"instanceName" : "target",
+							"loop" : true
+						},
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 1,
+								"aA" : 0
+							}
+						},
+						{
+							"type" : "Visibility",
+							"instanceId" : 3,
+							"visibility" : true
+						},
+						{
+							"type" : "BlendMode",
+							"instanceId" : 3,
+							"blendMode" : "Normal"
+						},
+						{
+							"type" : "Place",
+							"assetId" : 10,
+							"instanceId" : 4,
+							"placeAfter" : 3,
+							"transform" : {
+								"a" : 1,
+								"b" : 0,
+								"c" : 0,
+								"d" : 1,
+								"tx" : 449,
+								"ty" : 452
+							},
+							"instanceName" : "sun",
+							"loop" : true
+						},
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 1,
+								"aA" : 0
+							}
+						},
+						{
+							"type" : "Visibility",
+							"instanceId" : 4,
+							"visibility" : true
+						},
+						{
+							"type" : "BlendMode",
+							"instanceId" : 4,
+							"blendMode" : "Normal"
+						},
+						{
+							"type" : "Place",
+							"assetId" : 12,
+							"instanceId" : 5,
+							"placeAfter" : 4,
+							"transform" : {
+								"a" : 1,
+								"b" : 0,
+								"c" : 0,
+								"d" : 1,
+								"tx" : 960,
+								"ty" : 570.5
+							},
+							"loop" : true
+						},
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 5,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 1,
+								"aA" : 0
+							}
+						},
+						{
+							"type" : "Visibility",
+							"instanceId" : 5,
+							"visibility" : true
+						},
+						{
+							"type" : "BlendMode",
+							"instanceId" : 5,
+							"blendMode" : "Normal"
+						}
+					]
+				}
+			]
+		}
+	],
+	"_meta" : {
+		"outputFile" : "stage.js",
+		"stageName" : "stage",
+		"compressJS" : false,
+		"commonJS" : true,
+		"compactShapes" : true,
+		"nameSpace" : "lib",
+		"loopTimeline" : false,
+		"framerate" : 60,
+		"background" : "0",
+		"width" : 1920,
+		"height" : 1080,
+		"imagesPath" : "../images/",
+		"spritesheets" : true,
+		"spritesheetSize" : 1024,
+		"spritesheetScale" : 1,
+		"version" : "1.3.3"
+	}
+}

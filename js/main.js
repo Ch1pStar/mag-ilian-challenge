@@ -1,1 +1,1 @@
-document.addEventListener('DOMContentLoaded', () => new Game());
+document.addEventListener('DOMContentLoaded', () => window.game = new Game());

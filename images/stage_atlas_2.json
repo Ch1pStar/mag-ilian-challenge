@@ -1,0 +1,25 @@
+{
+  "frames": {
+    "sun": {
+      "frame": {
+        "x": 1,
+        "y": 1,
+        "w": 649,
+        "h": 650
+      },
+      "sourceSize": {
+        "w": 649,
+        "h": 650
+      }
+    }
+  },
+  "meta": {
+    "app": "PixiAnimate",
+    "scale": 1,
+    "image": "stage_atlas_2.png",
+    "size": {
+      "w": 1024,
+      "h": 1024
+    }
+  }
+}
