@@ -3,48 +3,62 @@
 	"Bitmaps" : [
 		{
 			"assetId" : 1,
-			"height" : 150,
-			"width" : 113,
-			"src" : "../images/rocket.png",
-			"name" : "rocket"
+			"height" : 68,
+			"width" : 56,
+			"src" : "../images/thrust.png",
+			"name" : "thrust"
 		},
 		{
 			"assetId" : 3,
+			"height" : 77,
+			"width" : 70,
+			"src" : "../images/rocketBody.png",
+			"name" : "rocketBody"
+		},
+		{
+			"assetId" : 5,
 			"height" : 313,
 			"width" : 319,
 			"src" : "../images/earth.png",
 			"name" : "earth"
 		},
 		{
-			"assetId" : 5,
+			"assetId" : 7,
 			"height" : 177,
 			"width" : 183,
 			"src" : "../images/mars.png",
 			"name" : "mars"
 		},
 		{
-			"assetId" : 7,
+			"assetId" : 10,
+			"height" : 313,
+			"width" : 313,
+			"src" : "../images/phys_mask.png",
+			"name" : "phys_mask"
+		},
+		{
+			"assetId" : 12,
 			"height" : 650,
 			"width" : 649,
 			"src" : "../images/sun.png",
 			"name" : "sun"
 		},
 		{
-			"assetId" : 8,
+			"assetId" : 13,
 			"height" : 126,
 			"width" : 93,
 			"src" : "../images/flare1.png",
 			"name" : "flare1"
 		},
 		{
-			"assetId" : 9,
+			"assetId" : 14,
 			"height" : 288,
 			"width" : 158,
 			"src" : "../images/flare2.png",
 			"name" : "flare2"
 		},
 		{
-			"assetId" : 11,
+			"assetId" : 17,
 			"height" : 1634,
 			"width" : 2948,
 			"src" : "../images/stars2x.png",
@@ -57,7 +71,7 @@
 		{
 			"assetId" : 2,
 			"type" : "movieclip",
-			"name" : "rocket",
+			"name" : "rocketThrust",
 			"totalFrames" : 1,
 			"frames" : [
 				{
@@ -74,7 +88,7 @@
 								"c" : 1,
 								"d" : 0,
 								"tx" : 0,
-								"ty" : 113
+								"ty" : 56
 							}
 						}
 					]
@@ -84,6 +98,1194 @@
 		{
 			"assetId" : 4,
 			"type" : "movieclip",
+			"name" : "rocket",
+			"totalFrames" : 60,
+			"frames" : [
+				{
+					"frame" : 0,
+					"commands" : [
+						{
+							"type" : "Place",
+							"assetId" : 2,
+							"instanceId" : 1,
+							"placeAfter" : 0,
+							"transform" : {
+								"a" : 1,
+								"b" : 0,
+								"c" : 0,
+								"d" : 1,
+								"tx" : 19.25,
+								"ty" : 7.2
+							},
+							"instanceName" : "rocketThrust",
+							"loop" : true
+						},
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.43,
+								"aA" : 0
+							}
+						},
+						{
+							"type" : "Visibility",
+							"instanceId" : 1,
+							"visibility" : true
+						},
+						{
+							"type" : "BlendMode",
+							"instanceId" : 1,
+							"blendMode" : "Normal"
+						},
+						{
+							"type" : "Place",
+							"assetId" : 3,
+							"instanceId" : 2,
+							"placeAfter" : 1,
+							"transform" : {
+								"a" : 0,
+								"b" : -1,
+								"c" : 1,
+								"d" : 0,
+								"tx" : -39,
+								"ty" : 35
+							}
+						}
+					]
+				},
+				{
+					"frame" : 1,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.45,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 2,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.47,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 3,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.49,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 4,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.51,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 5,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.53,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 6,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.55,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 7,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.57,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 8,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.59,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 9,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.61,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 10,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.63,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 11,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.64,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 12,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.66,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 13,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.68,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 14,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.7,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 15,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.73,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 16,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.75,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 17,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.77,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 18,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.79,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 19,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.8,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 20,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.82,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 21,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.84,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 22,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.86,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 23,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.88,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 24,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.9,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 25,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.92,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 26,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.94,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 27,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.96,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 28,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.98,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 29,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 1,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 30,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.97,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 31,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.95,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 32,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.92,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 33,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.9,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 34,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.87,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 35,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.85,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 36,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.82,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 37,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.79,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 38,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.77,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 39,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.74,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 40,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.72,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 41,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.69,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 42,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.67,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 43,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.64,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 44,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.62,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 45,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.59,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 46,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.56,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 47,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.54,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 48,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.51,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 49,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.49,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 50,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.46,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 51,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.44,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 52,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.41,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 53,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.38,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 54,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.36,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 55,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.33,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 56,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.31,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 57,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.28,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 58,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.26,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 59,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.23,
+								"aA" : 0
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"assetId" : 6,
+			"type" : "movieclip",
 			"name" : "earth",
 			"totalFrames" : 1,
 			"frames" : [
@@ -92,7 +1294,7 @@
 					"commands" : [
 						{
 							"type" : "Place",
-							"assetId" : 3,
+							"assetId" : 5,
 							"instanceId" : 1,
 							"placeAfter" : 0,
 							"transform" : {
@@ -109,36 +1311,9 @@
 			]
 		},
 		{
-			"assetId" : 6,
+			"assetId" : 8,
 			"type" : "movieclip",
-			"name" : "sun",
-			"totalFrames" : 1,
-			"frames" : [
-				{
-					"frame" : 0,
-					"commands" : [
-						{
-							"type" : "Place",
-							"assetId" : 5,
-							"instanceId" : 1,
-							"placeAfter" : 0,
-							"transform" : {
-								"a" : 1,
-								"b" : 0,
-								"c" : 0,
-								"d" : 1,
-								"tx" : -125,
-								"ty" : -113
-							}
-						}
-					]
-				}
-			]
-		},
-		{
-			"assetId" : 10,
-			"type" : "movieclip",
-			"name" : "Sun2",
+			"name" : "pMask_moon",
 			"totalFrames" : 1,
 			"frames" : [
 				{
@@ -157,10 +1332,63 @@
 								"tx" : 0,
 								"ty" : 0
 							}
-						},
+						}
+					]
+				}
+			]
+		},
+		{
+			"assetId" : 9,
+			"type" : "movieclip",
+			"name" : "sun",
+			"totalFrames" : 1,
+			"frames" : [
+				{
+					"frame" : 0,
+					"commands" : [
 						{
 							"type" : "Place",
 							"assetId" : 8,
+							"instanceId" : 1,
+							"placeAfter" : 0,
+							"transform" : {
+								"a" : 1,
+								"b" : 0,
+								"c" : 0,
+								"d" : 1,
+								"tx" : -125,
+								"ty" : -113
+							},
+							"instanceName" : "pMask",
+							"loop" : true
+						},
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 1,
+								"aA" : 0
+							}
+						},
+						{
+							"type" : "Visibility",
+							"instanceId" : 1,
+							"visibility" : true
+						},
+						{
+							"type" : "BlendMode",
+							"instanceId" : 1,
+							"blendMode" : "Normal"
+						},
+						{
+							"type" : "Place",
+							"assetId" : 7,
 							"instanceId" : 2,
 							"placeAfter" : 1,
 							"transform" : {
@@ -168,13 +1396,148 @@
 								"b" : 0,
 								"c" : 0,
 								"d" : 1,
-								"tx" : 437,
-								"ty" : 93
+								"tx" : -125,
+								"ty" : -113
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"assetId" : 11,
+			"type" : "movieclip",
+			"name" : "pMask",
+			"totalFrames" : 1,
+			"frames" : [
+				{
+					"frame" : 0,
+					"commands" : [
+						{
+							"type" : "Place",
+							"assetId" : 10,
+							"instanceId" : 1,
+							"placeAfter" : 0,
+							"transform" : {
+								"a" : 1,
+								"b" : 0,
+								"c" : 0,
+								"d" : 1,
+								"tx" : 0,
+								"ty" : 0
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"assetId" : 15,
+			"type" : "movieclip",
+			"name" : "flares",
+			"totalFrames" : 1,
+			"frames" : [
+				{
+					"frame" : 0,
+					"commands" : [
+						{
+							"type" : "Place",
+							"assetId" : 13,
+							"instanceId" : 1,
+							"placeAfter" : 0,
+							"transform" : {
+								"a" : 1,
+								"b" : 0,
+								"c" : 0,
+								"d" : 1,
+								"tx" : 33,
+								"ty" : 162
 							}
 						},
 						{
 							"type" : "Place",
-							"assetId" : 9,
+							"assetId" : 14,
+							"instanceId" : 2,
+							"placeAfter" : 1,
+							"transform" : {
+								"a" : 1,
+								"b" : 0,
+								"c" : 0,
+								"d" : 1,
+								"tx" : 0,
+								"ty" : 0
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"assetId" : 16,
+			"type" : "movieclip",
+			"name" : "Sun2",
+			"totalFrames" : 60,
+			"frames" : [
+				{
+					"frame" : 0,
+					"commands" : [
+						{
+							"type" : "Place",
+							"assetId" : 11,
+							"instanceId" : 1,
+							"placeAfter" : 0,
+							"transform" : {
+								"a" : 1,
+								"b" : 0,
+								"c" : 0,
+								"d" : 1,
+								"tx" : 172,
+								"ty" : 170
+							},
+							"instanceName" : "pMask",
+							"loop" : true
+						},
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 1,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.21,
+								"aA" : 0
+							}
+						},
+						{
+							"type" : "Visibility",
+							"instanceId" : 1,
+							"visibility" : true
+						},
+						{
+							"type" : "BlendMode",
+							"instanceId" : 1,
+							"blendMode" : "Normal"
+						},
+						{
+							"type" : "Place",
+							"assetId" : 12,
+							"instanceId" : 2,
+							"placeAfter" : 1,
+							"transform" : {
+								"a" : 1,
+								"b" : 0,
+								"c" : 0,
+								"d" : 1,
+								"tx" : 0,
+								"ty" : 0
+							}
+						},
+						{
+							"type" : "Place",
+							"assetId" : 15,
 							"instanceId" : 3,
 							"placeAfter" : 2,
 							"transform" : {
@@ -184,6 +1547,1153 @@
 								"d" : 1,
 								"tx" : 404,
 								"ty" : -69
+							},
+							"instanceName" : "flares",
+							"loop" : true
+						},
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.21,
+								"aA" : 0
+							}
+						},
+						{
+							"type" : "Visibility",
+							"instanceId" : 3,
+							"visibility" : true
+						},
+						{
+							"type" : "BlendMode",
+							"instanceId" : 3,
+							"blendMode" : "Normal"
+						}
+					]
+				},
+				{
+					"frame" : 1,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.24,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 2,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.27,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 3,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.29,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 4,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.32,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 5,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.35,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 6,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.38,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 7,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.4,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 8,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.43,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 9,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.46,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 10,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.48,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 11,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.51,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 12,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.54,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 13,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.57,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 14,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.59,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 15,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.62,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 16,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.64,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 17,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.67,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 18,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.7,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 19,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.73,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 20,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.75,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 21,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.78,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 22,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.81,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 23,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.84,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 24,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.86,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 25,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.89,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 26,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.92,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 27,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.95,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 28,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.97,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 29,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 1,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 30,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.96,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 31,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.93,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 32,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.9,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 33,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.87,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 34,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.83,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 35,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.8,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 36,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.77,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 37,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.73,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 38,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.7,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 39,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.67,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 40,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.63,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 41,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.6,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 42,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.57,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 43,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.54,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 44,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.5,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 45,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.46,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 46,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.43,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 47,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.4,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 48,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.37,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 49,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.33,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 50,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.3,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 51,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.27,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 52,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.23,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 53,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.2,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 54,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.17,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 55,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.13,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 56,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.1,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 57,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.07,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 58,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.04,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 59,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 3,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0,
+								"aA" : 0
 							}
 						}
 					]
@@ -191,7 +2701,7 @@
 			]
 		},
 		{
-			"assetId" : 12,
+			"assetId" : 18,
 			"type" : "movieclip",
 			"name" : "background",
 			"totalFrames" : 1,
@@ -201,7 +2711,7 @@
 					"commands" : [
 						{
 							"type" : "Place",
-							"assetId" : 11,
+							"assetId" : 17,
 							"instanceId" : 1,
 							"placeAfter" : 0,
 							"transform" : {
@@ -220,14 +2730,17 @@
 		{
 			"type" : "stage",
 			"name" : "stage",
-			"totalFrames" : 1,
+			"totalFrames" : 35,
 			"frames" : [
 				{
-					"frame" : 0,
+					"frame" : 5,
+					"labels" : [
+						"start"
+					],
 					"commands" : [
 						{
 							"type" : "Place",
-							"assetId" : 2,
+							"assetId" : 4,
 							"instanceId" : 1,
 							"placeAfter" : 0,
 							"transform" : {
@@ -267,7 +2780,7 @@
 						},
 						{
 							"type" : "Place",
-							"assetId" : 4,
+							"assetId" : 6,
 							"instanceId" : 2,
 							"placeAfter" : 1,
 							"transform" : {
@@ -307,7 +2820,7 @@
 						},
 						{
 							"type" : "Place",
-							"assetId" : 6,
+							"assetId" : 9,
 							"instanceId" : 3,
 							"placeAfter" : 2,
 							"transform" : {
@@ -347,7 +2860,7 @@
 						},
 						{
 							"type" : "Place",
-							"assetId" : 10,
+							"assetId" : 16,
 							"instanceId" : 4,
 							"placeAfter" : 3,
 							"transform" : {
@@ -371,7 +2884,7 @@
 								"gA" : 0,
 								"b" : 1,
 								"bA" : 0,
-								"a" : 1,
+								"a" : 0,
 								"aA" : 0
 							}
 						},
@@ -387,7 +2900,7 @@
 						},
 						{
 							"type" : "Place",
-							"assetId" : 12,
+							"assetId" : 18,
 							"instanceId" : 5,
 							"placeAfter" : 4,
 							"transform" : {
@@ -423,6 +2936,557 @@
 							"type" : "BlendMode",
 							"instanceId" : 5,
 							"blendMode" : "Normal"
+						}
+					]
+				},
+				{
+					"frame" : 6,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.04,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 7,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.07,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 8,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.1,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 9,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.14,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 10,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.17,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 11,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.21,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 12,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.24,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 13,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.28,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 14,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.31,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 15,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.34,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 16,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.38,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 17,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.41,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 18,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.45,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 19,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.48,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 20,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.52,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 21,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.55,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 22,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.59,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 23,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.62,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 24,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.66,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 25,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.69,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 26,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.72,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 27,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.76,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 28,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.79,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 29,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.83,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 30,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.86,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 31,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.9,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 32,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.93,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 33,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 0.96,
+								"aA" : 0
+							}
+						}
+					]
+				},
+				{
+					"frame" : 34,
+					"commands" : [
+						{
+							"type" : "ColorTransform",
+							"instanceId" : 4,
+							"colorMatrix" : {
+								"r" : 1,
+								"rA" : 0,
+								"g" : 1,
+								"gA" : 0,
+								"b" : 1,
+								"bA" : 0,
+								"a" : 1,
+								"aA" : 0
+							}
 						}
 					]
 				}
