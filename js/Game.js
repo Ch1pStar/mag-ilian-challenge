@@ -1,19 +1,15 @@
-const ALLOWED_COMMANDS = ['x', 'y', 'rotation'];
+const ALLOWED_COMMANDS = ['x', 'y', 'rotation']; // TODO - thrust
 
 function navigate(data) {
     // data = {rocket = {x, y, rotation}, target = {x, y}, gravity, flare, meteor}
-    let x = data.rocket.x// - 6;
-    let y = data.rocket.y// - 3;
-    let rotation = data.rocket.rotation// - 0.003;
+    let x = data.rocket.x;// - 6;
+    let y = data.rocket.y;// - 3;
+    let rotation = data.rocket.rotation;// - 0.003;
 
     return {x, y, rotation};
 }
 
-let src = navigate.toString().split('\n');
-src.shift();
-src.length -= 1;
-
-const START_SCRIPT = src.join('\n');
+const START_SCRIPT = navigate.toString();
 
 class Game {
 
@@ -21,32 +17,32 @@ class Game {
         this.width = window.innerWidth;
         this.height = window.innerHeight;
         this.config = {rocket: {x: 0, y: 0, rotation: 0}};
-        this.zoom = 100;
+        //this.zoom = 100;
         this.rocket = null;
         this.planets = [];
         this.container = document.querySelector('#game-container');
-        this.renderer = PIXI.autoDetectRenderer(1920, 1080, {
-            backgroundColor: 0,
-        });
+        this.renderer = PIXI.autoDetectRenderer(1920, 1080, { backgroundColor: 0 });
         this.container.querySelector("#canvas-container").appendChild(this.renderer.view);
         this.stage = new PIXI.Container();
 
-        let prevTime = performance.now;
-        let time = 16.6;
+        this.prevTime = performance.now();
 
-        const update = this.update = (t) => {
-            time = Math.min(t - prevTime, 17);
-            prevTime = t;
-
-            this._doUpdate(time);
-            // this.world.step(time*.001);
-            this.world.step(0.016);
-            this.renderer.render(this.stage);
-
-            requestAnimationFrame(update);
-        };
+        this.tickBound = this.tick.bind(this);
 
         PIXI.animate.load(lib.stage, (inst) => this.onLoaded(inst)); // TODO loader
+    }
+
+    tick() {
+        let now = performance.now();
+        let delta = Math.min(now - this.prevTime, 17); // cap at 17 mls per frame
+        this.prevTime = now;
+
+        this.update(delta);
+        // this.world.step(time*.001);
+        this.world.step(0.016); // ?!? TODO
+        this.renderer.render(this.stage);
+
+        requestAnimationFrame(this.tickBound);
     }
 
     onLoaded(inst) {
@@ -67,7 +63,7 @@ class Game {
         // some how-to-animation
         // setTimeout(() => { // do some button click animation instead
             // this.hideSidePanel(() => {
-                this.update(performance.now);
+                this.tick();
             // });
         // }, 1000);
 
@@ -217,12 +213,20 @@ class Game {
         p2.vec2.sub(diff, planet.position, rocket.position);
         p2.vec2.normalize(n, diff);
 
-        rocket.velocity = p2.vec2.add(rocket.velocity, n, rocket.velocity);
+        rocket.velocity = p2.vec2.add(rocket.velocity, n, rocket.velocity); //todo move in update
     }
 
-    _doUpdate(t) {
+    update(delta) {
 
-        let navigationCommands = this.navigate({ // TODO catch user input errors
+        let rocketThrust = this.navigationOutput
+        Object.assign(this.rocket, rocketThrust); // TODO update rocket dynamics
+
+        this._applyPlanetGravitation(this.sun);
+        this._applyPlanetGravitation(this.target);
+    }
+
+    get navigationOutput() {
+        let output = this.navigate({ // TODO catch user input errors
             rocket: {x: this.rocket.x, y: this.rocket.y, rotation: this.rocket.rotation},
             target: {x: 0, y: 0},
             flare: 0, // some horizontal force
@@ -231,22 +235,16 @@ class Game {
         });
 
         // filter non allowed commands
-        for (let key in navigationCommands) {
-            if (ALLOWED_COMMANDS.indexOf(key) === -1) delete navigationCommands[key];
+        for (let key in output) {
+            if (ALLOWED_COMMANDS.indexOf(key) === -1) delete output[key];
         }
-
-        Object.assign(this.rocket, navigationCommands);
-
-
-        this._applyPlanetGravitation(this.sun);
-        this._applyPlanetGravitation(this.target);
+        return output;
     }
 
     /** define rocket movement */
     navigate(data) {
         // user input evaled here
     }
-
 
     _initCodePanel() {
         this.sidePanel = this.container.querySelector('#side-panel');
