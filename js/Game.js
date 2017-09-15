@@ -9,7 +9,11 @@ function navigate(data) {
     return {x, y, rotation};
 }
 
-const START_SCRIPT = navigate.toString();
+let src = navigate.toString().split('\n');
+src.shift();
+src.length -= 1;
+
+const START_SCRIPT = src.join('\n');
 
 class Game {
 
@@ -134,7 +138,7 @@ class Game {
         const sun = animateStage.sun;
         const moon = animateStage.target;
 
-        this._initPlanet(sun);
+        // this._initPlanet(sun);
         this.target = this._initPlanet(moon);
     }
 
@@ -193,24 +197,31 @@ class Game {
             height: rocket.height,
         });
 
-        //const base = new p2.Line({length: rocket.width / 2});
-        //body.addShape(base, [rocket.width / 4, rocket.height ]);
-        const base = new p2.Box({
-            width: rocket.width,
-            height: rocket.height,
-        });
-        body.addShape(base); // TODO DOESN'T WORK - BAD COLLISION
-        body.addShape(shape);
+        const base = new p2.Line({length: rocket.width / 2});
+        body.addShape(base, [-shape.width/2, shape.height/2]);
+        // const base = new p2.Box({
+        //     width: rocket.width,
+        //     height: rocket.height,
+        // });
+        // body.addShape(base); // TODO DOESN'T WORK - BAD COLLISION
+        // body.addShape(shape);
         body.sprite = rocket;
         world.addBody(body);
         this.base = base;
 
-        // const g = new PIXI.Graphics();
-        // g.beginFill(0xff00ff);
-        // g.drawRect(-rocket.width/2, -rocket.height/2, rocket.width, rocket.height);
-        // g.endFill();
-        // g.alpha = 0.1;
-        // this.stage.addChild(g);
+        const g = new PIXI.Graphics();
+        g.beginFill(0xff00ff);
+        g.drawRect(-rocket.width/2, -rocket.height/2, rocket.width, rocket.height);
+        g.endFill();
+        g.alpha = 0.1;
+        this.stage.addChild(g);
+
+        const g2 = new PIXI.Graphics();
+        g2.lineStyle(2, 0xff00ff);
+        g2.moveTo(-base.length/2, shape.height/2);
+        g2.lineTo(base.length, shape.height/2);
+
+        this.stage.addChild(g2);
 
 
         body.position = new Proxy(body.position, {
@@ -220,12 +231,20 @@ class Game {
                 rocket.y = target[1];
                 rocket.rotation = body.rotation + 1; // adjust for natural rocket texture rotation
 
-                // g.position.x = target[0];
-                // g.position.y = target[1];
+                g.position.x = target[0];
+                g.position.y = target[1];
+
+                g2.position.x = target[0];
+                g2.position.y = target[1];
 
                 return true;
             }
         });
+
+ 
+        // document.addEventListener('mousemove', (e) => {
+        //     body.position = [e.clientX, e.clientY];
+        // });
 
         this.rocket = body;
 
@@ -251,7 +270,7 @@ class Game {
         let rocketThrust = this.navigationOutput
         Object.assign(this.rocket, rocketThrust); // TODO update rocket dynamics
 
-        this._applyPlanetGravitation(this.sun);
+        // this._applyPlanetGravitation(this.sun);
         this._applyPlanetGravitation(this.target);
     }
 
