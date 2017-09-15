@@ -19,6 +19,8 @@ class Game {
         this.config = {rocket: {x: 0, y: 0, rotation: 0}};
         //this.zoom = 100;
         this.rocket = null;
+        this.target = null;
+        this.base = null; // used for checking landing direction
         this.planets = [];
         this.container = document.querySelector('#game-container');
         this.renderer = PIXI.autoDetectRenderer(1920, 1080, { backgroundColor: 0 });
@@ -105,6 +107,26 @@ class Game {
         });
 
         this.world = world;
+
+        world.on('impact', (evt) => {
+            console.log(this.base);
+            console.log(this.target);
+            if ((evt.bodyA === this.base && evt.bodyB === this.target) ||
+                (evt.bodyB === this.base && evt.bodyA === this.target))
+            {
+                this._checkLanding();
+            }
+
+        })
+    }
+
+    _checkLanding() {
+        let speed = Math.abs(this.rocket.velocity[0] * this.rocket.velocity[1]);
+        if (speed > 10) console.log(" > > > > > > > > > TOO FAST");
+        //console.log(this.rocket.velocity);
+        //console.log(this.rocket.rotation);
+        //console.log(this.rocket.position[0], this.rocket.position[1]);
+        //console.log(this.target.position[0], this.target.position[1]);
     }
 
     _initPlanets() {
@@ -113,7 +135,7 @@ class Game {
         const moon = animateStage.target;
 
         this._initPlanet(sun);
-        this._initPlanet(moon);
+        this.target = this._initPlanet(moon);
     }
 
     _initPlanet(planet) {
@@ -152,6 +174,7 @@ class Game {
         });
 
         pMask.visible = false;
+        return body;
     }
 
     _initRocket() {
@@ -170,10 +193,17 @@ class Game {
             height: rocket.height,
         });
 
+        //const base = new p2.Line({length: rocket.width / 2});
+        //body.addShape(base, [rocket.width / 4, rocket.height ]);
+        const base = new p2.Box({
+            width: rocket.width,
+            height: rocket.height,
+        });
+        body.addShape(base); // TODO DOESN'T WORK - BAD COLLISION
         body.addShape(shape);
         body.sprite = rocket;
         world.addBody(body);
-
+        this.base = base;
 
         // const g = new PIXI.Graphics();
         // g.beginFill(0xff00ff);
