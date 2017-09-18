@@ -41,21 +41,21 @@ class Game {
         const SIN_COS_TOLERATION = Math.sin( TOLERABLE_ANGLE_DEVIATION ); // 0.2588...
         const HALF_PI = Math.PI / 2;
 
-        document.addEventListener('mousemove', (e) => {
-           console.log("move to", e.clientX, e.clientY);
-            this.rocket.position[0] = e.clientX;
-            this.rocket.position[1] = e.clientY;
-            var angleRadians = Math.atan2(this.rocket.position[1] - this.target.position[1], this.rocket.position[0] - this.target.position[0]); // rocket entry angle
-            angleRadians += HALF_PI; // abcissa to ordinate based
-            console.log("Angle = ", angleRadians);
-            if (Math.abs( Math.sin(angleRadians) - Math.sin(this.rocket.rotation)) < SIN_COS_TOLERATION) { // OR tocket.angle?
-                console.log("SIN OK ");
-                if (Math.abs( Math.cos(angleRadians) - Math.cos(this.rocket.rotation)) < SIN_COS_TOLERATION) {
-                    console.log("COS OK ")
-                    alert(" ANGLE IS GOOD")
-                }
-            }
-        });
+        // document.addEventListener('mousemove', (e) => {
+        //    console.log("move to", e.clientX, e.clientY);
+        //     this.rocket.position[0] = e.clientX;
+        //     this.rocket.position[1] = e.clientY;
+        //     var angleRadians = Math.atan2(this.rocket.position[1] - this.target.position[1], this.rocket.position[0] - this.target.position[0]); // rocket entry angle
+        //     angleRadians += HALF_PI; // abcissa to ordinate based
+        //     console.log("Angle = ", angleRadians);
+        //     if (Math.abs( Math.sin(angleRadians) - Math.sin(this.rocket.rotation)) < SIN_COS_TOLERATION) { // OR tocket.angle?
+        //         console.log("SIN OK ");
+        //         if (Math.abs( Math.cos(angleRadians) - Math.cos(this.rocket.rotation)) < SIN_COS_TOLERATION) {
+        //             console.log("COS OK ")
+        //             alert(" ANGLE IS GOOD")
+        //         }
+        //     }
+        // });
     }
 
     tick() {
@@ -252,19 +252,26 @@ class Game {
         world.addBody(body);
         //this.base = body;
 
-        //const g = new PIXI.Graphics();
-        //g.beginFill(0xff00ff);
-        //g.drawRect(-rocket.width/2, -rocket.height/2, rocket.width, rocket.height);
-        //g.endFill();
-        //g.alpha = 0.6;
-        //this.stage.addChild(g);
+        const g = new PIXI.Graphics();
+        g.beginFill(0xff00ff);
+        g.drawRect(-rocket.width/2, -rocket.height/2, rocket.width, rocket.height);
+        g.endFill();
+        g.alpha = 0.6;
+        // this.stage.addChild(g);
+        window.a = g;
 
-        //const g2 = new PIXI.Graphics();
-        //g2.lineStyle(2, 0xff00ff);
-        //g2.moveTo(-base.length/2, shape.height/2);
-        //g2.lineTo(base.length, shape.height/2);
+        const s = PIXI.Sprite.fromImage('images/ar.png');
+        s.width = rocket.width;
+        s.height = rocket.height;
 
-        //this.stage.addChild(g2);
+        s.x = rocket.x;
+        s.y = rocket.y;
+        s.anchor.set(0.5)
+        s.alpha = .5;
+
+        window.s = s;
+
+        this.stage.addChild(s);
 
 
         body.position = new Proxy(body.position, {
@@ -274,20 +281,18 @@ class Game {
                 rocket.y = target[1];
                 rocket.rotation = body.rotation + 1; // adjust for natural rocket texture rotation
 
-                //g.position.x = target[0];
-                //g.position.y = target[1];
+                g.position.x = target[0];
+                g.position.y = target[1];
+                g.rotation = body.rotation;
 
-                //g2.position.x = target[0];
-                //g2.position.y = target[1];
+
+                s.x = target[0];
+                s.y = target[1];
+                s.rotation = body.rotation; // adjust for natural rocket texture rotation
 
                 return true;
             }
         });
-
- 
-        // document.addEventListener('mousemove', (e) => {
-        //     body.position = [e.clientX, e.clientY];
-        // });
 
         this.rocket = body;
 
@@ -295,6 +300,53 @@ class Game {
         this.config.rocket.x = rocket.x;
         this.config.rocket.y = rocket.y;
         this.config.rocket.rotation = rocket.rotation;
+
+
+    }
+
+    _forwardVector(body) {
+        return [Math.sin(body.rotation), Math.cos(body.rotation)];
+    }
+
+    _thrust(mul = 10000) {
+        const r = this.rocket;
+        const f = p2.vec2.mul([], this._forwardVector(r), [mul, -mul]);
+
+        // return p2.vec2.mul(r.force, this._forwardVector(r), [mul, -mul]);
+        return r.applyForce(f);
+    }
+
+    go() {
+        this._onCommand('KeyW');
+    }
+
+    break() {
+        this._onCommand('KeyS');
+    }
+
+    left() {
+        this._onCommand('KeyA');
+    }
+
+    right() {
+        this._onCommand('KeyD');
+    }
+
+    _onCommand(key) {
+        switch(key) {
+            case 'KeyW':
+                this._thrust(100);
+                break;
+            case 'KeyS':
+                this._thrust(-100);
+                break;
+            case 'KeyA':
+                this.rocket.rotation = this.rocket.rotation- .05%Math.PI/2 ;
+                break;
+            case 'KeyD':
+                this.rocket.rotation = this.rocket.rotation +.05%Math.PI/2;
+                break;
+        }
     }
 
     _applyPlanetGravitation(planet) {
@@ -309,9 +361,28 @@ class Game {
     }
 
     update(delta) {
+        const r = this.rocket;
+        const t = this.target;
 
         let rocketThrust = this.navigationOutput
-        Object.assign(this.rocket, rocketThrust); // TODO update rocket dynamics
+        Object.assign(r, rocketThrust); // TODO update rocket dynamics
+
+        if(r.position[1] > 600){
+            this.go();
+        }else{
+            this.break();
+        }
+
+        // const a = Math.atan2(r.position[1] - t.position[1], r.position[0] - t.position[0]);
+        const ro = Math.abs(r.rotation % Math.PI/2);
+
+        if(ro < .5){
+            this.left();
+        }else{
+            this.right();
+        }
+
+        // this.rocket.rotation = a;
 
         // this._applyPlanetGravitation(this.sun);
         //this._applyPlanetGravitation(this.target);
