@@ -36,6 +36,26 @@ class Game {
         this.tickBound = this.tick.bind(this);
 
         PIXI.animate.load(lib.stage, (inst) => this.onLoaded(inst)); // TODO loader
+
+        const TOLERABLE_ANGLE_DEVIATION = Math.PI / 12; // 15 degrees
+        const SIN_COS_TOLERATION = Math.sin( TOLERABLE_ANGLE_DEVIATION ); // 0.2588...
+        const HALF_PI = Math.PI / 2;
+
+        document.addEventListener('mousemove', (e) => {
+           console.log("move to", e.clientX, e.clientY);
+            this.rocket.position[0] = e.clientX;
+            this.rocket.position[1] = e.clientY;
+            var angleRadians = Math.atan2(this.rocket.position[1] - this.target.position[1], this.rocket.position[0] - this.target.position[0]); // rocket entry angle
+            angleRadians += HALF_PI; // abcissa to ordinate based
+            console.log("Angle = ", angleRadians);
+            if (Math.abs( Math.sin(angleRadians) - Math.sin(this.rocket.rotation)) < SIN_COS_TOLERATION) { // OR tocket.angle?
+                console.log("SIN OK ");
+                if (Math.abs( Math.cos(angleRadians) - Math.cos(this.rocket.rotation)) < SIN_COS_TOLERATION) {
+                    console.log("COS OK ")
+                    alert(" ANGLE IS GOOD")
+                }
+            }
+        });
     }
 
     tick() {
@@ -113,13 +133,22 @@ class Game {
         this.world = world;
 
         world.on('impact', (evt) => {
-            console.log(this.base);
-            console.log(this.target);
-            if ((evt.bodyA === this.base && evt.bodyB === this.target) ||
-                (evt.bodyB === this.base && evt.bodyA === this.target))
-            {
-                this._checkLanding();
+            //console.log(this.base);
+            //console.log(this.target);
+            if (evt.bodyA === this.target || evt.bodyB === this.target) {
+                console.log('CHECK LANDING 1');
+                if (evt.bodyB === this.base || evt.bodyA === this.base) {
+                    console.log('CHECK LANDING 2');
+                    this._checkLanding();
+                    alert("DD")
+                }
             }
+            //if ((evt.bodyA === this.base && evt.bodyB === this.target) ||
+            //    (evt.bodyB === this.base && evt.bodyA === this.target))
+            //{
+            //    console.log('CHECK LANDING');
+            //    this._checkLanding();
+            //}
 
         })
     }
@@ -127,6 +156,20 @@ class Game {
     _checkLanding() {
         let speed = Math.abs(this.rocket.velocity[0] * this.rocket.velocity[1]);
         if (speed > 10) console.log(" > > > > > > > > > TOO FAST");
+
+        //var p1 = {
+        //    x: 20,
+        //    y: 20
+        //};
+        //
+        //var p2 = {
+        //    x: 40,
+        //    y: 40
+        //};
+
+// angle in radians
+        var angleRadians = Math.atan2(this.rocket.position[1] - this.target.position[1], this.rocket.position[0] - this.target.position[0]);
+        console.log("Angle", angleRadians);
         //console.log(this.rocket.velocity);
         //console.log(this.rocket.rotation);
         //console.log(this.rocket.position[0], this.rocket.position[1]);
@@ -160,7 +203,7 @@ class Game {
         const shape = new p2.Circle({radius});
 
         body.addShape(shape);
-        body.position.set([x, y]);
+        body.position.set([1000, 450]);
 
         body.sprite = planet;
         world.addBody(body);
@@ -197,31 +240,31 @@ class Game {
             height: rocket.height,
         });
 
-        const base = new p2.Line({length: rocket.width / 2});
-        body.addShape(base, [-shape.width/2, shape.height/2]);
+        //const base = new p2.Line({length: rocket.width / 4});
+        //body.addShape(base, [-base.length/2, shape.height/2]);
         // const base = new p2.Box({
         //     width: rocket.width,
         //     height: rocket.height,
         // });
         // body.addShape(base); // TODO DOESN'T WORK - BAD COLLISION
-        // body.addShape(shape);
+         body.addShape(shape);
         body.sprite = rocket;
         world.addBody(body);
-        this.base = base;
+        //this.base = body;
 
-        const g = new PIXI.Graphics();
-        g.beginFill(0xff00ff);
-        g.drawRect(-rocket.width/2, -rocket.height/2, rocket.width, rocket.height);
-        g.endFill();
-        g.alpha = 0.1;
-        this.stage.addChild(g);
+        //const g = new PIXI.Graphics();
+        //g.beginFill(0xff00ff);
+        //g.drawRect(-rocket.width/2, -rocket.height/2, rocket.width, rocket.height);
+        //g.endFill();
+        //g.alpha = 0.6;
+        //this.stage.addChild(g);
 
-        const g2 = new PIXI.Graphics();
-        g2.lineStyle(2, 0xff00ff);
-        g2.moveTo(-base.length/2, shape.height/2);
-        g2.lineTo(base.length, shape.height/2);
+        //const g2 = new PIXI.Graphics();
+        //g2.lineStyle(2, 0xff00ff);
+        //g2.moveTo(-base.length/2, shape.height/2);
+        //g2.lineTo(base.length, shape.height/2);
 
-        this.stage.addChild(g2);
+        //this.stage.addChild(g2);
 
 
         body.position = new Proxy(body.position, {
@@ -231,11 +274,11 @@ class Game {
                 rocket.y = target[1];
                 rocket.rotation = body.rotation + 1; // adjust for natural rocket texture rotation
 
-                g.position.x = target[0];
-                g.position.y = target[1];
+                //g.position.x = target[0];
+                //g.position.y = target[1];
 
-                g2.position.x = target[0];
-                g2.position.y = target[1];
+                //g2.position.x = target[0];
+                //g2.position.y = target[1];
 
                 return true;
             }
@@ -271,7 +314,7 @@ class Game {
         Object.assign(this.rocket, rocketThrust); // TODO update rocket dynamics
 
         // this._applyPlanetGravitation(this.sun);
-        this._applyPlanetGravitation(this.target);
+        //this._applyPlanetGravitation(this.target);
     }
 
     get navigationOutput() {
