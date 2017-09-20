@@ -1,12 +1,53 @@
-const ALLOWED_COMMANDS = ['x', 'y', 'rotation'];  // TODO - thrust
+const ALLOWED_COMMANDS = ['forward', 'backward', 'left', 'right'];  // TODO - thrust
+
+// _____ GLOBAL HELPER FUNCITON AVAILBALE TO PLAYER ______
+function toG(r) {
+    return r * 180 / Math.PI;
+}
+
+function getDistance(a, b) {
+    let deltaX = a.x - b.x;
+    let deltaY = a.y - b.y;
+    return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+}
+
+function getVelocity(velocity) {
+    return Math.abs(velocity.x * velocity.y);
+}
+
+// ______________________________________________________
 
 function navigate(data) {
-    // data = {rocket = {x, y, rotation}, target = {x, y}, gravity, flare, meteor}
-    let x = data.rocket.x// - 6;
-    let y = data.rocket.y// - 3;
-    let rotation = data.rocket.rotation// - 0.003;
+    // data = rocket {x, y, rotation, velocity: {x, y}}, target {x, y}, forces {x, y}
+    let forward = false, backward = false, left = false, right = false;
 
-    return {x, y, rotation};
+    let distance = getDistance(data.rocket, data.target);
+
+    if (distance > 800) {
+        let angleDeltaSin = Math.sin(data.rocketToTargetAngle);
+        if (data.rocketToTargetAngle > 0.1) {
+            right = true;
+        } else if (data.rocketToTargetAngle < -0.1) {
+            left = true;
+        }
+
+        if (!left && !right && getVelocity(data.rocket.velocity) < 4000) {
+            forward = true;
+        }
+    } else {
+        if (data.rocketToTargetAngle >= 0 && data.rocketToTargetAngle < 3) {
+            left = true;
+        } else if (data.rocketToTargetAngle <= 0 && data.rocketToTargetAngle > -3) {
+            right = true;
+        }
+        if (!left && !right) {
+            if (getVelocity(data.rocket.velocity) > 800) forward = true;
+            else if (getVelocity(data.rocket.velocity) < 400) backward = true;
+        }
+        // SOME DISTANCE CALCULATIONS - forward if too fast after rotation, backaward if not moving towards target
+    }
+
+    return {forward, backward, left, right};
 }
 
 let src = navigate.toString().split('\n');
@@ -14,10 +55,12 @@ src.shift();
 src.length -= 1;
 
 const START_SCRIPT = src.join('\n');
-const MAX_LANDING_VELOCITY = 15;
+const MAX_LANDING_VELOCITY = 800;
 const TOLERABLE_ANGLE_DEVIATION = Math.PI / 12; // 15 degrees
 const SIN_COS_TOLERATION = Math.sin( TOLERABLE_ANGLE_DEVIATION ); // 0.2588...
 const HALF_PI = Math.PI / 2;
+const THRUST_SPEED = 80;
+
 
 class Game {
 
@@ -25,7 +68,7 @@ class Game {
         this.width = window.innerWidth;
         this.height = window.innerHeight;
         this.config = {rocket: {x: 0, y: 0, rotation: 0}};
-        this.zoom = 100;
+
         this.rocket = null;
         this.target = null;
         this.planets = [];
@@ -43,12 +86,6 @@ class Game {
         PIXI.animate.load(lib.stage, (inst) => this.onLoaded(inst)); // TODO loader
 
         this._tick = 0;
-        this._thrustSpeed = 80;
-
-        //document.addEventListener('mousemove', (e) => { // Debugging
-        // this.rocket.position[0] = e.clientX;
-        // this.rocket.position[1] = e.clientY;
-        //});
     }
 
     tick() {
@@ -57,7 +94,6 @@ class Game {
         this.prevTime = now;
 
         this.update(delta, this._tick++);
-        // this.world.step(time*.001);
         this.world.step(0.016); // ?!? TODO
         this.renderer.render(this.stage);
 
@@ -142,7 +178,7 @@ class Game {
         if (speed > MAX_LANDING_VELOCITY) return this._gameOver('Too fast.');
 
         // check angle
-        var angleRadians = Math.atan2( // rocket entry angle
+        let angleRadians = Math.atan2( // rocket entry angle
             this.rocket.position[1] - this.target.position[1],
             this.rocket.position[0] - this.target.position[0]
         );
@@ -302,37 +338,13 @@ class Game {
         return r.applyForce(f);
     }
 
-    go() {
-        this._onCommand('KeyW');
-    }
+    _handleNavigation(command) {
+        if (command.forward) this._thrust(THRUST_SPEED);
+        if (command.backward) this._thrust(-(THRUST_SPEED / 2));
+        if (command.left) this.rocket.rotation = this.rocket.rotation - .15 ;
+        if (command.right) this.rocket.rotation = this.rocket.rotation + .15;
 
-    break() {
-        this._onCommand('KeyS');
-    }
-
-    left() {
-        this._onCommand('KeyA');
-    }
-
-    right() {
-        this._onCommand('KeyD');
-    }
-
-    _onCommand(key) {
-        switch(key) {
-            case 'KeyW':
-                this._thrust(this._thrustSpeed);
-                break;
-            case 'KeyS':
-                this._thrust(-(this._thrustSpeed/4));
-                break;
-            case 'KeyA':
-                this.rocket.rotation = this.rocket.rotation - .05 ;
-                break;
-            case 'KeyD':
-                this.rocket.rotation = this.rocket.rotation + .05;
-                break;
-        }
+        this.rocket.rotation = this.rocket.rotation % (2 * Math.PI);
     }
 
     _applyPlanetGravitation(planet) {
@@ -352,49 +364,7 @@ class Game {
         const r = this.rocket;
         const t = this.target;
 
-        let rocketThrust = this.navigationOutput;
-        Object.assign(r, rocketThrust); // TODO update rocket dynamics
-
-        const angleTolerance = 0.2;
-        const velocityTolerance = 0.2;
-        const db = 1;
-        const angleToTarget = Math.atan2(r.position[1] - t.position[1], r.position[0] - t.position[0]);
-        const rocketTargetAngle = angleToTarget - 1.5;
-        const rot = r.rotation%(Math.PI*2);
-        const speed = p2.vec2.length(r.velocity);
-
-
-        // TODO adjust for acting forces
-        // TODO turn while moving
-        if(rot < rocketTargetAngle) {
-            if(speed>velocityTolerance) {
-                // r.velocity = [0,0];
-                this.break();
-                return;
-            }
-
-            if(tick%db==0){
-                this.right();
-            }
-
-            return
-        }else if(rot > (rocketTargetAngle+angleTolerance)) {
-            if(speed>velocityTolerance) {
-                // r.velocity = [0,0];
-                this.break();
-                return;
-            }
-
-            if(tick%db==0){
-                this.left();
-            }
-
-            return;
-        }
-
-        if(speed < 80){
-            this.go()
-        }
+        this._handleNavigation(this.navigationOutput);
 
         // this._applyPlanetGravitation(this.sun);
         // this._applyPlanetGravitation(this.target);
@@ -402,11 +372,18 @@ class Game {
 
     get navigationOutput() {
         let output = this.navigate({ // TODO catch user input errors
-            rocket: {x: this.rocket.x, y: this.rocket.y, rotation: this.rocket.rotation},
-            target: {x: 0, y: 0},
-            flare: 0, // some horizontal force
-            gravity: 0, // some vertical force
-            meteor: 0 // after how much time?
+            rocket: {
+                x: this.rocket.position[0],
+                y: this.rocket.position[1],
+                rotation: this.rocket.rotation,
+                velocity: {
+                    x: this.rocket.velocity[0],
+                    y: this.rocket.velocity[1]
+                }
+            },
+            target: {x: this.target.position[0], y: this.target.position[1]},
+            rocketToTargetAngle: this._planetToRocketAngle(),
+            forces: {x: 0, y: 0}, // TODO
         });
 
         // filter non allowed commands
@@ -421,6 +398,35 @@ class Game {
         // user input evaled here
     }
 
+    /**
+     * rocket rotation 0 is up, grows clockwise
+     * @returns {number} Relative angle between rocket oreitnation and target center.
+     *  [-Pi; 0) target to left of rocket
+     *  (0, Pi] target to right of rocket
+     * @private
+     */
+    _planetToRocketAngle() {
+        let planetAngle = Math.atan2( // target to rocket to abcissa
+            this.rocket.position[1] - this.target.position[1],
+            this.target.position[0] - this.rocket.position[0]
+        );
+
+        let rocketAngle = (Math.PI / 2 - this.rocket.rotation ) % (2 * Math.PI); // rocket vector to abcissa
+        if (rocketAngle < -Math.PI)  rocketAngle = (2 * Math.PI) + rocketAngle; // convert -200 to 20
+        else if (rocketAngle > Math.PI)  rocketAngle = rocketAngle - 2 * Math.PI; // convert 200 to -20
+
+        let a = rocketAngle, b = planetAngle;
+
+        if (a > 0) {
+            if (b < 0 && b < a - Math.PI) return a - b - 2 * Math.PI;
+            else if (b < 0 && b >= a - Math.PI) return a - b;
+            else return a - b;
+        } else if (a < 0) {
+            if (b > 0 && b <= Math.PI + a) return a - b;
+            else if (b > 0 && b > Math.PI + a) return 2 * Math.PI + a - b;
+            else return a - b;
+        } else return -b;
+    }
 
     _initCodePanel() {
         this.sidePanel = this.container.querySelector('#side-panel');
