@@ -42,6 +42,9 @@ class Game {
 
         PIXI.animate.load(lib.stage, (inst) => this.onLoaded(inst)); // TODO loader
 
+        this._tick = 0;
+        this._thrustSpeed = 80;
+
         //document.addEventListener('mousemove', (e) => { // Debugging
         // this.rocket.position[0] = e.clientX;
         // this.rocket.position[1] = e.clientY;
@@ -53,7 +56,7 @@ class Game {
         let delta = Math.min(now - this.prevTime, 17); // cap at 17 mls per frame
         this.prevTime = now;
 
-        this.update(delta);
+        this.update(delta, this._tick++);
         // this.world.step(time*.001);
         this.world.step(0.016); // ?!? TODO
         this.renderer.render(this.stage);
@@ -274,8 +277,18 @@ class Game {
         this.config.rocket.x = rocket.x;
         this.config.rocket.y = rocket.y;
         this.config.rocket.rotation = rocket.rotation;
-    }
 
+        // this.renderer.view.addEventListener('mousemove', (e) => {
+        //     const r = this.rocket;
+        //     const x = (((e.clientX) * (1920)) / (window.innerWidth));
+        //     const y = (((e.clientY) * (1080)) / (window.innerHeight));
+
+        //     // r.position[0] = x;
+        //     // r.position[1] = y;
+        //     const a = Math.atan2(r.position[1] - y, r.position[0] - x);
+        // });
+
+    }
 
     _forwardVector(body) {
         return [Math.sin(body.rotation), Math.cos(body.rotation)];
@@ -308,16 +321,16 @@ class Game {
     _onCommand(key) {
         switch(key) {
             case 'KeyW':
-                this._thrust(100);
+                this._thrust(this._thrustSpeed);
                 break;
             case 'KeyS':
-                this._thrust(-100);
+                this._thrust(-(this._thrustSpeed/4));
                 break;
             case 'KeyA':
-                this.rocket.rotation = this.rocket.rotation- .05%Math.PI/2 ;
+                this.rocket.rotation = this.rocket.rotation - .05 ;
                 break;
             case 'KeyD':
-                this.rocket.rotation = this.rocket.rotation +.05%Math.PI/2;
+                this.rocket.rotation = this.rocket.rotation + .05;
                 break;
         }
     }
@@ -325,40 +338,66 @@ class Game {
     _applyPlanetGravitation(planet) {
         const rocket = this.rocket;
         const diff = [];
-        const n = [];
+        const f = [];
 
         p2.vec2.sub(diff, planet.position, rocket.position);
-        p2.vec2.normalize(n, diff);
+        p2.vec2.normalize(f, diff);
 
-        rocket.velocity = p2.vec2.add(rocket.velocity, n, rocket.velocity);
+        rocket.applyForce(f);
+
+        return rocket.velocity;
     }
 
-    update(delta) {
+    update(delta, tick) {
         const r = this.rocket;
         const t = this.target;
 
         let rocketThrust = this.navigationOutput;
         Object.assign(r, rocketThrust); // TODO update rocket dynamics
 
-        if(r.position[1] > 600){
-            this.go();
-        }else{
-            this.break();
+        const angleTolerance = 0.2;
+        const velocityTolerance = 0.2;
+        const db = 1;
+        const angleToTarget = Math.atan2(r.position[1] - t.position[1], r.position[0] - t.position[0]);
+        const rocketTargetAngle = angleToTarget - 1.5;
+        const rot = r.rotation%(Math.PI*2);
+        const speed = p2.vec2.length(r.velocity);
+
+
+        // TODO adjust for acting forces
+        // TODO turn while moving
+        if(rot < rocketTargetAngle) {
+            if(speed>velocityTolerance) {
+                // r.velocity = [0,0];
+                this.break();
+                return;
+            }
+
+            if(tick%db==0){
+                this.right();
+            }
+
+            return
+        }else if(rot > (rocketTargetAngle+angleTolerance)) {
+            if(speed>velocityTolerance) {
+                // r.velocity = [0,0];
+                this.break();
+                return;
+            }
+
+            if(tick%db==0){
+                this.left();
+            }
+
+            return;
         }
 
-        // const a = Math.atan2(r.position[1] - t.position[1], r.position[0] - t.position[0]);
-        const ro = Math.abs(r.rotation % Math.PI/2);
-
-        if(ro < .5){
-            this.left();
-        }else{
-            this.right();
+        if(speed < 80){
+            this.go()
         }
-
-         //this.rocket.rotation = a;
 
         // this._applyPlanetGravitation(this.sun);
-        //this._applyPlanetGravitation(this.target);
+        // this._applyPlanetGravitation(this.target);
     }
 
     get navigationOutput() {
