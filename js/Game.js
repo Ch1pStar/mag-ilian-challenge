@@ -22,6 +22,11 @@ function navigate(data) {
     let forward = false, backward = false, left = false, right = false;
 
     let distance = getDistance(data.rocket, data.target);
+    const force = data.rocket.actingForce;
+    const vel = data.rocket.velocity;
+    const speed = p2.vec2.len(vel);
+    const forceLen = p2.vec2.len(force);
+    const b = data.rocket.body;
 
     if (distance > 800) {
         let angleDeltaSin = Math.sin(data.rocketToTargetAngle);
@@ -31,7 +36,7 @@ function navigate(data) {
             left = true;
         }
 
-        if (!left && !right && getVelocity(data.rocket.velocity) < 4000) {
+        if (!left && !right && getVelocity(vel) < 4000) {
             forward = true;
         }
     } else {
@@ -41,10 +46,18 @@ function navigate(data) {
             right = true;
         }
         if (!left && !right) {
-            if (getVelocity(data.rocket.velocity) > 800) forward = true;
-            else if (getVelocity(data.rocket.velocity) < 400) backward = true;
+            if (getVelocity(vel) > 800) forward = true;
+            else if (getVelocity(vel) < 400) backward = true;
         }
         // SOME DISTANCE CALCULATIONS - forward if too fast after rotation, backaward if not moving towards target
+    }
+
+    // Detect if we're drifting and correct it(forces like gravity cause drift)
+
+
+    // console.log(vel);
+    if(forceLen > 0) {
+        // data.rocket.ignoreGravity();
     }
 
     return {forward, backward, left, right};
@@ -331,7 +344,10 @@ class Game {
                 velocity: {
                     x: this.rocket.velocity[0],
                     y: this.rocket.velocity[1]
-                }
+                },
+                actingForce: this.rocketActingForce,
+                ignoreGravity: () => this.rocket.applyForce(p2.vec2.negate([], this.rocketActingForce)),
+                body: this.rocket,
             },
             target: {x: this.target.position[0], y: this.target.position[1]},
             rocketToTargetAngle: this._planetToRocketAngle(),
