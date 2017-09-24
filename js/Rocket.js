@@ -1,5 +1,3 @@
-
-
 class Rocket extends p2.Body {
 
     constructor(sprite, options) {
@@ -16,27 +14,34 @@ class Rocket extends p2.Body {
         this.addShape(shape);
         this.sprite = sprite;
 
-         const g = new PIXI.Graphics();
-         g.beginFill(0xff00ff);
-         g.drawRect(-sprite.width/2, -sprite.height/2, sprite.width, sprite.height);
-         g.endFill();
-         g.alpha = 0.6;
+         //const g = new PIXI.Graphics();
+         //g.beginFill(0xff00ff);
+         //g.drawRect(-sprite.width/2, -sprite.height/2, sprite.width, sprite.height);
+         //g.endFill();
+         //g.alpha = 0.6;
+        //
+        //window.a = g;
 
-        window.a = g;
+        //const s = PIXI.Sprite.fromImage('images/ar.png');
+        //s.width = sprite.width;
+        //s.height = sprite.height;
+        //
+        //s.x = sprite.x;
+        //s.y = sprite.y;
+        //s.anchor.set(0.5)
+        //s.alpha = .5;
+        //
+        //window.s = s;
+        //
+        //this.overlay = new PIXI.Container();
+        //this.overlay.addChild(g, s);
 
-        const s = PIXI.Sprite.fromImage('images/ar.png');
-        s.width = sprite.width;
-        s.height = sprite.height;
-
-        s.x = sprite.x;
-        s.y = sprite.y;
-        s.anchor.set(0.5)
-        s.alpha = .5;
-
-        window.s = s;
-
-        this.overlay = new PIXI.Container();
-        this.overlay.addChild(g, s);
+        //const thrust = PIXI.Sprite.fromImage('images/thrust.png');
+        //thrust.x = 0;
+        //thrust.y = 56;
+        //    .setTransform(0, 56, 1, 1, -1.571);
+        //console.log(this);
+        //this.addChild(thrust);
 
         this.position = new Proxy(this.position, {
             set: (target, property, value, receiver) => {
@@ -45,13 +50,13 @@ class Rocket extends p2.Body {
                 sprite.y = target[1];
                 sprite.rotation = this.rotation + 1; // adjust for natural rocket texture rotation
 
-                g.position.x = target[0];
-                g.position.y = target[1];
-                g.rotation = this.rotation;
+                //g.position.x = target[0];
+                //g.position.y = target[1];
+                //g.rotation = this.rotation;
 
-                s.x = target[0];
-                s.y = target[1];
-                s.rotation = this.rotation; // adjust for natural rocket texture rotation
+                //s.x = target[0];
+                //s.y = target[1];
+                //s.rotation = this.rotation; // adjust for natural rocket texture rotation
 
                 return true;
             }

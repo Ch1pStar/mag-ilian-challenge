@@ -7,8 +7,7 @@
 
     lib.rocketThrust = Container.extend(function () {
         Container.call(this);
-        var instance1 = new Sprite(fromFrame("thrust"))
-            .setTransform(0, 56, 1, 1, -1.571);
+        var instance1 = new Sprite(fromFrame("thrust"));
         this.addChild(instance1);
     });
 
@@ -18,193 +17,23 @@
         });
         var instance2 = new Sprite(fromFrame("rocketBody"))
             .setTransform(-39, 35, 1, 1, -1.571);
-        var instance1 = new lib.rocketThrust();
+        var instance1 = new lib.rocketThrust()
+            .setTransform(20, 63, 1, 1, -1.571);
+        var instance3 = new lib.rocketThrust()
+            .setTransform(-70, 0, 0.8, 0.8, 0);
+        var instance4 = new lib.rocketThrust()
+            .setTransform(32, -30, 0.8, 0.8, 3.14);
+        var instance5 = new lib.rocketThrust()
+            .setTransform(-40, -80, 0.9, 0.9, 1.571);
         this[instance1.name = "rocketThrust"] = instance1;
+        this[instance3.name = "rocketThrustRight"] = instance3;
+        this[instance4.name = "rocketThrustLeft"] = instance4;
+        this[instance5.name = "rocketThrustNose"] = instance5;
         this.addTimedChild(instance2)
-            .addTimedChild(instance1, 0, 60, {
-                "0": {
-                    x: 19.25,
-                    y: 7.2,
-                    a: 0.43
-                },
-                "1": {
-                    a: 0.45
-                },
-                "2": {
-                    a: 0.47
-                },
-                "3": {
-                    a: 0.49
-                },
-                "4": {
-                    a: 0.51
-                },
-                "5": {
-                    a: 0.53
-                },
-                "6": {
-                    a: 0.55
-                },
-                "7": {
-                    a: 0.57
-                },
-                "8": {
-                    a: 0.59
-                },
-                "9": {
-                    a: 0.61
-                },
-                "10": {
-                    a: 0.63
-                },
-                "11": {
-                    a: 0.64
-                },
-                "12": {
-                    a: 0.66
-                },
-                "13": {
-                    a: 0.68
-                },
-                "14": {
-                    a: 0.7
-                },
-                "15": {
-                    a: 0.73
-                },
-                "16": {
-                    a: 0.75
-                },
-                "17": {
-                    a: 0.77
-                },
-                "18": {
-                    a: 0.79
-                },
-                "19": {
-                    a: 0.8
-                },
-                "20": {
-                    a: 0.82
-                },
-                "21": {
-                    a: 0.84
-                },
-                "22": {
-                    a: 0.86
-                },
-                "23": {
-                    a: 0.88
-                },
-                "24": {
-                    a: 0.9
-                },
-                "25": {
-                    a: 0.92
-                },
-                "26": {
-                    a: 0.94
-                },
-                "27": {
-                    a: 0.96
-                },
-                "28": {
-                    a: 0.98
-                },
-                "29": {
-                    a: 1
-                },
-                "30": {
-                    a: 0.97
-                },
-                "31": {
-                    a: 0.95
-                },
-                "32": {
-                    a: 0.92
-                },
-                "33": {
-                    a: 0.9
-                },
-                "34": {
-                    a: 0.87
-                },
-                "35": {
-                    a: 0.85
-                },
-                "36": {
-                    a: 0.82
-                },
-                "37": {
-                    a: 0.79
-                },
-                "38": {
-                    a: 0.77
-                },
-                "39": {
-                    a: 0.74
-                },
-                "40": {
-                    a: 0.72
-                },
-                "41": {
-                    a: 0.69
-                },
-                "42": {
-                    a: 0.67
-                },
-                "43": {
-                    a: 0.64
-                },
-                "44": {
-                    a: 0.62
-                },
-                "45": {
-                    a: 0.59
-                },
-                "46": {
-                    a: 0.56
-                },
-                "47": {
-                    a: 0.54
-                },
-                "48": {
-                    a: 0.51
-                },
-                "49": {
-                    a: 0.49
-                },
-                "50": {
-                    a: 0.46
-                },
-                "51": {
-                    a: 0.44
-                },
-                "52": {
-                    a: 0.41
-                },
-                "53": {
-                    a: 0.38
-                },
-                "54": {
-                    a: 0.36
-                },
-                "55": {
-                    a: 0.33
-                },
-                "56": {
-                    a: 0.31
-                },
-                "57": {
-                    a: 0.28
-                },
-                "58": {
-                    a: 0.26
-                },
-                "59": {
-                    a: 0.23
-                }
-            });
+            .addTimedChild(instance1)
+            .addTimedChild(instance3)
+            .addTimedChild(instance4)
+            .addTimedChild(instance5)
     });
 
     lib.earth = Container.extend(function () {

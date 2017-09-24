@@ -12,7 +12,8 @@ function getDistance(a, b) {
 }
 
 function getVelocity(velocity) {
-    return Math.abs(velocity.x * velocity.y);
+    if (Array.isArray(velocity)) return Math.abs(velocity[0] * velocity[1]);
+    else if (typeof velocity === 'object' && typeof velocity.x !== 'undefined' && typeof velocity.y !== 'undefined') return Math.abs(velocity.x * velocity.y);
 }
 
 // ______________________________________________________
@@ -46,8 +47,8 @@ function navigate(data) {
             right = true;
         }
         if (!left && !right) {
-            if (getVelocity(vel) > 800) forward = true;
-            else if (getVelocity(vel) < 400) backward = true;
+            if (getVelocity(vel) > MAX_LANDING_VELOCITY) forward = true;
+            else if (getVelocity(vel) < MAX_LANDING_VELOCITY / 4) backward = true; // TODO doesn't seem to take into consideration ext force
         }
         // SOME DISTANCE CALCULATIONS - forward if too fast after rotation, backaward if not moving towards target
     }
@@ -69,12 +70,18 @@ src.shift();
 src.length -= 1;
 
 const START_SCRIPT = src.join('\n');
-const MAX_LANDING_VELOCITY = 800;
+const MAX_LANDING_VELOCITY = 70;
 const TOLERABLE_ANGLE_DEVIATION = Math.PI / 12; // 15 degrees
 const SIN_COS_TOLERATION = Math.sin( TOLERABLE_ANGLE_DEVIATION ); // 0.2588...
 const HALF_PI = Math.PI / 2;
 const THRUST_SPEED = 80;
 
+var thrusts = {
+    left: 0,
+    right: 0,
+    tail: 0,
+    nose: 0,
+}
 
 class Game {
 
@@ -188,7 +195,7 @@ class Game {
 
     _checkLanding() {
         // check speed
-        let speed = Math.abs(this.rocket.velocity[0] * this.rocket.velocity[1]);
+        let speed = getVelocity(this.rocket.velocity);
         if (speed > MAX_LANDING_VELOCITY) return this._gameOver('Too fast.');
 
         // check angle
@@ -262,6 +269,7 @@ class Game {
     _initRocket() {
         const stage = this.animateStage;
         const world = this.world;
+        //stage.rocket.rocketThrust.alpha = 0;
         const sprite = stage.rocket;
         const body = new Rocket(sprite, {
             mass: 1,
@@ -273,7 +281,15 @@ class Game {
 
         this.rocket = body;
 
-        stage.addChild(this.rocket.overlay);
+        this.leftThrust = sprite.rocketThrustLeft;
+        this.rightThrust = sprite.rocketThrustRight;
+        this.tailThrust = sprite.rocketThrust;
+        this.noseThrust = sprite.rocketThrustNose;
+
+        this.leftThrust.alpha = 0;
+        this.rightThrust.alpha = 0;
+        this.tailThrust.alpha = 0;
+        this.noseThrust.alpha = 0;
 
         // cache initial settings
         this.config.rocket.x = sprite.x;
@@ -293,12 +309,30 @@ class Game {
     }
 
     _handleNavigation(command) {
-        if (command.forward) this.rocket._thrust(THRUST_SPEED);
-        if (command.backward) this.rocket._thrust(-(THRUST_SPEED / 2));
-        if (command.left) this.rocket.rotation = this.rocket.rotation - .15 ;
-        if (command.right) this.rocket.rotation = this.rocket.rotation + .15;
+        if (command.forward) {
+            if (thrusts.tail < 10) thrusts.tail++;
+            this.rocket._thrust(THRUST_SPEED);
+        } else if (thrusts.tail > 0) thrusts.tail--;
+
+        if (command.backward) {
+            if (thrusts.nose < 10) thrusts.nose++;
+            this.rocket._thrust(-(THRUST_SPEED));
+        } else if (thrusts.nose > 0) thrusts.nose--;
+        if (command.left) {
+            if (thrusts.left < 10) thrusts.left++;
+            this.rocket.rotation = this.rocket.rotation - .01;
+        } else if (thrusts.left > 0) thrusts.left--;
+        if (command.right) {
+            if (thrusts.right < 10) thrusts.right++;
+            this.rocket.rotation = this.rocket.rotation + .01;
+        } else if (thrusts.right > 0) thrusts.right --;
 
         this.rocket.rotation = this.rocket.rotation % (2 * Math.PI);
+
+        this.leftThrust.alpha = thrusts.left / 10;
+        this.rightThrust.alpha = thrusts.right / 10;
+        this.tailThrust.alpha = thrusts.tail / 10;
+        this.noseThrust.alpha = thrusts.nose / 10;
     }
 
     _getPlanetGravitation(planet) {
