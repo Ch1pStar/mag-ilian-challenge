@@ -50,6 +50,7 @@ function navigate(data) {
     return {forward, backward, left, right};
 }
 
+
 let src = navigate.toString().split('\n');
 src.shift();
 src.length -= 1;
@@ -248,71 +249,23 @@ class Game {
     _initRocket() {
         const stage = this.animateStage;
         const world = this.world;
-        const rocket = stage.rocket;
-        const body = new p2.Body({
+        const sprite = stage.rocket;
+        const body = new Rocket(sprite, {
             mass: 1,
-            position: [rocket.x-rocket.width, rocket.y-rocket.height],
             angle: 0,
             velocity: [0, 0],
-            angularVelocity: 0
+            angularVelocity: 0,
         });
-        const shape = new p2.Box({
-            width: rocket.width,
-            height: rocket.height,
-        });
-
-        body.addShape(shape);
-        body.sprite = rocket;
         world.addBody(body);
-
-
-         const g = new PIXI.Graphics();
-         g.beginFill(0xff00ff);
-         g.drawRect(-rocket.width/2, -rocket.height/2, rocket.width, rocket.height);
-         g.endFill();
-         g.alpha = 0.6;
-         this.stage.addChild(g);
-
-        window.a = g;
-
-        const s = PIXI.Sprite.fromImage('images/ar.png');
-        s.width = rocket.width;
-        s.height = rocket.height;
-
-        s.x = rocket.x;
-        s.y = rocket.y;
-        s.anchor.set(0.5)
-        s.alpha = .5;
-
-        window.s = s;
-
-        this.stage.addChild(s);
-
-        body.position = new Proxy(body.position, {
-            set: (target, property, value, receiver) => {
-                target[property] = value;
-                rocket.x = target[0];
-                rocket.y = target[1];
-                rocket.rotation = body.rotation + 1; // adjust for natural rocket texture rotation
-
-                g.position.x = target[0];
-                g.position.y = target[1];
-                g.rotation = body.rotation;
-
-                s.x = target[0];
-                s.y = target[1];
-                s.rotation = body.rotation; // adjust for natural rocket texture rotation
-
-                return true;
-            }
-        });
 
         this.rocket = body;
 
+        stage.addChild(this.rocket.overlay);
+
         // cache initial settings
-        this.config.rocket.x = rocket.x;
-        this.config.rocket.y = rocket.y;
-        this.config.rocket.rotation = rocket.rotation;
+        this.config.rocket.x = sprite.x;
+        this.config.rocket.y = sprite.y;
+        this.config.rocket.rotation = sprite.rotation;
 
         // this.renderer.view.addEventListener('mousemove', (e) => {
         //     const r = this.rocket;
@@ -326,21 +279,9 @@ class Game {
 
     }
 
-    _forwardVector(body) {
-        return [Math.sin(body.rotation), Math.cos(body.rotation)];
-    }
-
-    _thrust(mul = 10000) {
-        const r = this.rocket;
-        const f = p2.vec2.mul([], this._forwardVector(r), [mul, -mul]);
-
-        // return p2.vec2.mul(r.force, this._forwardVector(r), [mul, -mul]);
-        return r.applyForce(f);
-    }
-
     _handleNavigation(command) {
-        if (command.forward) this._thrust(THRUST_SPEED);
-        if (command.backward) this._thrust(-(THRUST_SPEED / 2));
+        if (command.forward) this.rocket._thrust(THRUST_SPEED);
+        if (command.backward) this.rocket._thrust(-(THRUST_SPEED / 2));
         if (command.left) this.rocket.rotation = this.rocket.rotation - .15 ;
         if (command.right) this.rocket.rotation = this.rocket.rotation + .15;
 
