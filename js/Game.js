@@ -288,27 +288,38 @@ class Game {
         this.rocket.rotation = this.rocket.rotation % (2 * Math.PI);
     }
 
-    _applyPlanetGravitation(planet) {
+    _getPlanetGravitation(planet) {
         const rocket = this.rocket;
         const diff = [];
         const f = [];
 
         p2.vec2.sub(diff, planet.position, rocket.position);
-        p2.vec2.normalize(f, diff);
+        return p2.vec2.normalize(f, diff);
 
-        rocket.applyForce(f);
+        // rocket.applyForce(f);
 
-        return rocket.velocity;
+        // return rocket.velocity;
     }
+
+    get rocketActingForce() {
+        const f = this._getPlanetGravitation(this.sun);
+
+        p2.vec2.add(f, f, this._getPlanetGravitation(this.target));
+
+        return p2.vec2.mul(f, f, [10, 10]); // gravitational force multiplier
+        // return f;
+    }
+
 
     update(delta, tick) {
         const r = this.rocket;
         const t = this.target;
 
-        this._handleNavigation(this.navigationOutput);
+        // console.log(this.rocketActingForce);
 
-        // this._applyPlanetGravitation(this.sun);
-        // this._applyPlanetGravitation(this.target);
+        r.applyForce(this.rocketActingForce);
+
+        this._handleNavigation(this.navigationOutput);
     }
 
     get navigationOutput() {
