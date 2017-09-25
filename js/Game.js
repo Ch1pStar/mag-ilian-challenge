@@ -29,12 +29,12 @@ function navigate(data) {
     // const forceLen = p2.vec2.len(force);
     const b = data.rocket.body;
 
-    if (data.actingForce && distance > 500) { //not landing
-        // run away from gravity
-        if (data.actingForce >= 0 && data.actingForce < 3.1) left = true;
-        else if (data.actingForce <= 0 && data.actingForce > -3.1) right = true;
-        forward = true;
-    } else {
+    // if (data.actingForce && distance > 500) { //not landing
+    //     // run away from gravity
+    //     if (data.actingForce >= 0 && data.actingForce < 2.1) left = true;
+    //     else if (data.actingForce <= 0 && data.actingForce > -2.1) right = true;
+    //     forward = true;
+    // } else {
         if (distance > 600) {
             if (data.rocketToTargetAngle > 0.05) right = true;
             else if (data.rocketToTargetAngle < -0.05) left = true;
@@ -48,7 +48,7 @@ function navigate(data) {
                 else if (speed < MAX_LANDING_VELOCITY / 4) backward = true;
             }
         }
-    }
+    // }
 
     // Detect if we're drifting and correct it(forces like gravity cause drift)
 
@@ -324,7 +324,7 @@ class Game {
 
         // console.log(this.rocketActingForce);
 
-        // r.applyForce(this.rocketActingForce);
+        r.applyForce(this.rocketActingForce);
 
         this._handleNavigation(this.navigationOutput);
     }
