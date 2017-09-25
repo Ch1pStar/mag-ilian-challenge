@@ -156,7 +156,12 @@ class Game {
     }
 
     _gameOver(reason) {
-        alert("You dieded. " + reason); // TODO - fail screen
+        this.rocket.die();
+
+        const constraint = new p2.LockConstraint(this.target, this.rocket);
+        this.world.addConstraint(constraint);
+
+        console.log("You dieded. " + reason); // TODO - fail screen
     }
 
     _onWin() {
@@ -166,7 +171,6 @@ class Game {
 
         const constraint = new p2.LockConstraint(this.target, this.rocket);
         this.world.addConstraint(constraint);
-
     }
 
     init() {
@@ -241,6 +245,9 @@ class Game {
         this[anim.name] = body;
         this.planets.push(body);
 
+
+        this.stage.addChild(body.overlay);
+
         return body;
     }
 
@@ -248,7 +255,7 @@ class Game {
         const stage = this.animateStage;
         const world = this.world;
         const sprite = stage.rocket;
-        const body = new Rocket(sprite, {
+        const body = new Rocket(sprite, lib.thrust,{
             mass: 1,
             angle: 0,
             velocity: [0, 0],
@@ -263,17 +270,23 @@ class Game {
         this.config.rocket.y = sprite.y;
         this.config.rocket.rotation = sprite.rotation;
 
-        // this.renderer.view.addEventListener('mousemove', (e) => {
-        //     const r = this.rocket;
-        //     const x = (((e.clientX) * (1920)) / (window.innerWidth));
-        //     const y = (((e.clientY) * (1080)) / (window.innerHeight));
 
-        //     // r.position[0] = x;
-        //     // r.position[1] = y;
-        //     const a = Math.atan2(r.position[1] - y, r.position[0] - x);
-        // });
+        this.renderer.view.addEventListener('mousemove', (e) => {
+            // const r = this.rocket;
+            // const x = (((e.clientX) * (1920)) / (window.innerWidth));
+            // const y = (((e.clientY) * (1080)) / (window.innerHeight));
+
+            // r.position[0] = x;
+            // r.position[1] = y;
+
+            // r.velocity = [0,0];
+
+            // const a = Math.atan2(r.position[1] - y, r.position[0] - x);
+        });
 
         this.stage.addChild(body.overlay);
+
+        this.animateStage.removeChild(this.animateStage.thrust); // ?? why
     }
 
     _handleNavigation(command) {
@@ -322,7 +335,7 @@ class Game {
         const r = this.rocket;
         const t = this.target;
 
-        console.log(this.rocketActingForce);
+        // console.log(this.rocketActingForce);
 
         r.applyForce(this.rocketActingForce);
 
