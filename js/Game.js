@@ -328,7 +328,7 @@ class Game {
 
         // console.log(this.rocketActingForce);
 
-        r.applyForce(this.rocketActingForce);
+        // r.applyForce(this.rocketActingForce);
 
         this._handleNavigation(this.navigationOutput);
     }
