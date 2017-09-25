@@ -23,14 +23,13 @@ function navigate(data) {
     let forward = false, backward = false, left = false, right = false;
 
     let distance = getDistance(data.rocket, data.target);
-    const force = data.rocket.actingForce;
+    // const force = data.rocket.actingForce;
     const vel = data.rocket.velocity;
     const speed = p2.vec2.len(vel);
-    const forceLen = p2.vec2.len(force);
+    // const forceLen = p2.vec2.len(force);
     const b = data.rocket.body;
 
     if (distance > 800) {
-        let angleDeltaSin = Math.sin(data.rocketToTargetAngle);
         if (data.rocketToTargetAngle > 0.1) {
             right = true;
         } else if (data.rocketToTargetAngle < -0.1) {
@@ -55,11 +54,10 @@ function navigate(data) {
 
     // Detect if we're drifting and correct it(forces like gravity cause drift)
 
-
-    // console.log(vel);
-    if(forceLen > 0) {
-        // data.rocket.ignoreGravity();
-    }
+    // // console.log(vel);
+    // if(forceLen > 0) {
+    //     // data.rocket.ignoreGravity();
+    // }
 
     return {forward, backward, left, right};
 }
@@ -297,7 +295,7 @@ class Game {
         if (command.right) {
             if (thrusts.right < 10) thrusts.right++;
             this.rocket.rotation = this.rocket.rotation + .01;
-        } else if (thrusts.right > 0) thrusts.right --;
+        } else if (thrusts.right > 0) thrusts.right--;
 
         this.rocket.rotation = this.rocket.rotation % (2 * Math.PI);
 
@@ -343,12 +341,15 @@ class Game {
                     x: this.rocket.velocity[0],
                     y: this.rocket.velocity[1]
                 },
-                actingForce: this.rocketActingForce,
                 ignoreGravity: () => this.rocket.applyForce(p2.vec2.negate([], this.rocketActingForce)),
                 body: this.rocket,
             },
+            actingForce: {
+                angle: this._planetToObjectAngle(this.rocketActingForce),
+                velocity: p2.vec2.len(this.rocketActingForce)
+            },
             target: {x: this.target.position[0], y: this.target.position[1]},
-            rocketToTargetAngle: this._planetToRocketAngle(),
+            rocketToTargetAngle: this._planetToObjectAngle(this.target.position),
             forces: {x: 0, y: 0}, // TODO
         });
 
@@ -366,15 +367,16 @@ class Game {
 
     /**
      * rocket rotation 0 is up, grows clockwise
+     * target {Array[2]} x, y
      * @returns {number} Relative angle between rocket oreitnation and target center.
      *  [-Pi; 0) target to left of rocket
      *  (0, Pi] target to right of rocket
      * @private
      */
-    _planetToRocketAngle() {
+    _planetToObjectAngle(target) {
         let planetAngle = Math.atan2( // target to rocket to abcissa
-            this.rocket.position[1] - this.target.position[1],
-            this.target.position[0] - this.rocket.position[0]
+            this.rocket.position[1] - target[1],
+            target[0] - this.rocket.position[0]
         );
 
         let rocketAngle = (Math.PI / 2 - this.rocket.rotation ) % (2 * Math.PI); // rocket vector to abcissa
