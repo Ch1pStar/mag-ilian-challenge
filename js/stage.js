@@ -11,6 +11,12 @@
         this.addChild(instance1);
     });
 
+    lib.earth_g_mask = Container.extend(function () {
+        Container.call(this);
+        var instance1 = new Sprite(fromFrame("earth_gravity_mask"));
+        this.addChild(instance1);
+    });
+
     lib.earth_phys_mask = Container.extend(function () {
         Container.call(this);
         var instance1 = new Sprite(fromFrame("earth"));
@@ -19,10 +25,19 @@
 
     lib.earth = Container.extend(function () {
         Container.call(this);
-        var instance2 = new Sprite(fromFrame("earth"));
-        var instance1 = new lib.earth_phys_mask();
-        this[instance1.name = "pMask"] = instance1;
-        this.addChild(instance2, instance1);
+        var instance3 = new Sprite(fromFrame("earth"));
+        var instance2 = new lib.earth_phys_mask();
+        this[instance2.name = "pMask"] = instance2;
+        var instance1 = new lib.earth_g_mask()
+            .setTransform(-148, -156);
+        this[instance1.name = "gMask"] = instance1;
+        this.addChild(instance3, instance2, instance1);
+    });
+
+    lib.mars_g_mask = Container.extend(function () {
+        Container.call(this);
+        var instance1 = new Sprite(fromFrame("mars_gravity_mask"));
+        this.addChild(instance1);
     });
 
     lib.mars_phys_mask = Container.extend(function () {
@@ -33,10 +48,19 @@
 
     lib.target = Container.extend(function () {
         Container.call(this);
-        var instance2 = new Sprite(fromFrame("target"));
-        var instance1 = new lib.mars_phys_mask();
-        this[instance1.name = "pMask"] = instance1;
-        this.addChild(instance2, instance1);
+        var instance3 = new Sprite(fromFrame("target"));
+        var instance2 = new lib.mars_phys_mask();
+        this[instance2.name = "pMask"] = instance2;
+        var instance1 = new lib.mars_g_mask()
+            .setTransform(-166, -179.25);
+        this[instance1.name = "gMask"] = instance1;
+        this.addChild(instance3, instance2, instance1);
+    });
+
+    lib.sun_g_mask = Container.extend(function () {
+        Container.call(this);
+        var instance1 = new Sprite(fromFrame("sun_gravity_mask"));
+        this.addChild(instance1);
     });
 
     lib.sun_phys_mask = Container.extend(function () {
@@ -55,12 +79,14 @@
         MovieClip.call(this, {
             duration: 60
         });
-        var instance3 = new lib.radiation();
-        this[instance3.name = "radiation"] = instance3;
-        var instance2 = new Sprite(fromFrame("sun"));
-        var instance1 = new lib.sun_phys_mask();
-        this[instance1.name = "pMask"] = instance1;
-        this.addTimedChild(instance3, 0, 60, {
+        var instance4 = new lib.radiation();
+        this[instance4.name = "radiation"] = instance4;
+        var instance3 = new Sprite(fromFrame("sun"));
+        var instance2 = new lib.sun_phys_mask();
+        this[instance2.name = "pMask"] = instance2;
+        var instance1 = new lib.sun_g_mask();
+        this[instance1.name = "gMask"] = instance1;
+        this.addTimedChild(instance4, 0, 60, {
                 "0": {
                     x: -17,
                     y: -17,
@@ -244,8 +270,14 @@
                     a: 0
                 }
             })
-            .addTimedChild(instance2)
-            .addTimedChild(instance1, 0, 1);
+            .addTimedChild(instance3)
+            .addTimedChild(instance2, 0, 1)
+            .addTimedChild(instance1, 0, 1, {
+                "0": {
+                    x: -161,
+                    y: -157
+                }
+            });
     });
 
     lib.background = Container.extend(function () {
@@ -381,8 +413,11 @@
 
     lib.stage.assets = {
         "rocket": "images/rocket.png",
+        "earth_gravity_mask": "images/earth_gravity_mask.png",
         "earth": "images/earth.png",
+        "mars_gravity_mask": "images/mars_gravity_mask.png",
         "target": "images/target.png",
+        "sun_gravity_mask": "images/sun_gravity_mask.png",
         "sun": "images/sun.png",
         "sunPulse": "images/sunPulse.png",
         "stars2x": "images/stars2x.png",

@@ -17,8 +17,10 @@ class Planet extends p2.Body {
         this.sprite = sprite;
         this.name = sprite.name;
 
-        this.gravityRadius = 600;
-        const gravityMask = new PIXI.Graphics();
+        const gMask = sprite.gMask;
+
+    	gMask.visible = false;
+    	this.gravityRadius = gMask.width/2;
 
         this.position = new Proxy(this.position, {
             set: function(target, property, value, receiver) {

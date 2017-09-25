@@ -322,7 +322,7 @@ class Game {
         const r = this.rocket;
         const t = this.target;
 
-        // console.log(this.rocketActingForce);
+        console.log(this.rocketActingForce);
 
         r.applyForce(this.rocketActingForce);
 
