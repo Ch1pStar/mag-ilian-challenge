@@ -107,6 +107,10 @@ class Rocket extends p2.Body {
         this.sprite.removeChild(this.thrustRight);
     }
 
+    get winAnim() {
+        return new lib.landing_rocket();
+    }
+
     _thrust(mul = 10000) {
         const f = p2.vec2.mul([], forwardVector(this), [mul, -mul]);
 

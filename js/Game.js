@@ -35,7 +35,7 @@ function navigate(data) {
     //     else if (data.actingForce <= 0 && data.actingForce > -2.1) right = true;
     //     forward = true;
     // } else {
-        if (distance > 600) {
+        if (distance > 900) {
             if (data.rocketToTargetAngle > 0.05) right = true;
             else if (data.rocketToTargetAngle < -0.05) left = true;
 
@@ -171,6 +171,17 @@ class Game {
 
         const constraint = new p2.LockConstraint(this.target, this.rocket);
         this.world.addConstraint(constraint);
+
+        const oldSp = this.rocket.sprite;
+
+        this.animateStage.removeChild(oldSp);
+
+        const winAnim = this.rocket.winAnim;
+
+
+        winAnim.transform = oldSp.transform;
+
+        this.animateStage.addChild(winAnim);
     }
 
     init() {
@@ -287,6 +298,7 @@ class Game {
         this.stage.addChild(body.overlay);
 
         this.animateStage.removeChild(this.animateStage.thrust); // ?? why
+        this.animateStage.removeChild(this.animateStage.thrust); // ?? why
     }
 
     _handleNavigation(command) {
@@ -329,7 +341,6 @@ class Game {
 
         return f;
     }
-
 
     update(delta, tick) {
         const r = this.rocket;
