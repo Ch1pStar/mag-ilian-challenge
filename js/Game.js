@@ -236,7 +236,6 @@ class Game {
         const world = this.world;
         const body = new Planet(anim, {
             mass: 0,
-            position: [0, 0],
             angle: 0,
             velocity: [0, 0],
             angularVelocity: 0
@@ -252,7 +251,6 @@ class Game {
     _initRocket() {
         const stage = this.animateStage;
         const world = this.world;
-        //stage.rocket.rocketThrust.alpha = 0;
         const sprite = stage.rocket;
         const body = new Rocket(sprite, {
             mass: 1,
@@ -263,16 +261,6 @@ class Game {
         world.addBody(body);
 
         this.rocket = body;
-
-        this.leftThrust = sprite.rocketThrustLeft;
-        this.rightThrust = sprite.rocketThrustRight;
-        this.tailThrust = sprite.rocketThrust;
-        this.noseThrust = sprite.rocketThrustNose;
-
-        this.leftThrust.alpha = 0;
-        this.rightThrust.alpha = 0;
-        this.tailThrust.alpha = 0;
-        this.noseThrust.alpha = 0;
 
         // cache initial settings
         this.config.rocket.x = sprite.x;
@@ -289,6 +277,7 @@ class Game {
         //     const a = Math.atan2(r.position[1] - y, r.position[0] - x);
         // });
 
+        this.stage.addChild(body.overlay);
     }
 
     _handleNavigation(command) {
@@ -312,17 +301,16 @@ class Game {
 
         this.rocket.rotation = this.rocket.rotation % (2 * Math.PI);
 
-        this.leftThrust.alpha = thrusts.left / 10;
-        this.rightThrust.alpha = thrusts.right / 10;
-        this.tailThrust.alpha = thrusts.tail / 10;
-        this.noseThrust.alpha = thrusts.nose / 10;
+        this.rocket.thrustLeft.alpha = thrusts.left / 10;
+        this.rocket.thrustRight.alpha = thrusts.right / 10;
+        this.rocket.thrustNose.alpha = thrusts.nose / 10;
+        this.rocket.thrust.alpha = thrusts.tail / 10;
     }
 
     get rocketActingForce() {
         const r = this.rocket;
         const f = [0,0];
         const ps = this.planets;
-        const res = [0,0];
 
         for(let i=0;i<ps.length;i++) {
             const p = ps[i];
@@ -330,9 +318,7 @@ class Game {
             p2.vec2.add(f, f, p.getPullForce(r));
         }
 
-        p2.vec2.mul(res, f, [30, 30]);
-
-        return res; // gravitational force multiplier
+        return f;
     }
 
 
@@ -344,7 +330,7 @@ class Game {
 
         r.applyForce(this.rocketActingForce);
 
-        // this._handleNavigation(this.navigationOutput);
+        this._handleNavigation(this.navigationOutput);
     }
 
     get navigationOutput() {

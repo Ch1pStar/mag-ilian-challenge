@@ -5,41 +5,25 @@
     var Sprite = PIXI.Sprite;
     var fromFrame = PIXI.Texture.fromFrame;
 
-    lib.rocketThrust = Container.extend(function () {
+    lib.rocket = Container.extend(function () {
         Container.call(this);
-        var instance1 = new Sprite(fromFrame("thrust"));
+        var instance1 = new Sprite(fromFrame("rocketBody"));
         this.addChild(instance1);
     });
 
-    lib.rocket = MovieClip.extend(function () {
-        MovieClip.call(this, {
-            duration: 60
-        });
-        var instance2 = new Sprite(fromFrame("rocketBody"))
-            .setTransform(-39, 35, 1, 1, -1.571);
-        var instance1 = new lib.rocketThrust()
-            .setTransform(20, 63, 1, 1, -1.571);
-        var instance3 = new lib.rocketThrust()
-            .setTransform(-70, 0, 0.8, 0.8, 0);
-        var instance4 = new lib.rocketThrust()
-            .setTransform(32, -30, 0.8, 0.8, 3.14);
-        var instance5 = new lib.rocketThrust()
-            .setTransform(-40, -80, 0.9, 0.9, 1.571);
-        this[instance1.name = "rocketThrust"] = instance1;
-        this[instance3.name = "rocketThrustRight"] = instance3;
-        this[instance4.name = "rocketThrustLeft"] = instance4;
-        this[instance5.name = "rocketThrustNose"] = instance5;
-        this.addTimedChild(instance2)
-            .addTimedChild(instance1)
-            .addTimedChild(instance3)
-            .addTimedChild(instance4)
-            .addTimedChild(instance5)
+    lib.pMask_earth = Container.extend(function () {
+        Container.call(this);
+        var instance1 = new Sprite(fromFrame("Bitmap 1"));
+        this.addChild(instance1);
     });
 
     lib.earth = Container.extend(function () {
         Container.call(this);
-        var instance1 = new Sprite(fromFrame("earth"));
-        this.addChild(instance1);
+        var instance2 = new Sprite(fromFrame("earth"));
+        var instance1 = new lib.pMask_earth()
+            .setTransform(83, 80);
+        this[instance1.name = "pMask"] = instance1;
+        this.addChild(instance2, instance1);
     });
 
     lib.pMask_moon = Container.extend(function () {
@@ -289,16 +273,17 @@
         });
         var instance5 = new lib.background()
             .setTransform(960, 570.5);
+        this[instance5.name = "background"] = instance5;
         var instance4 = new lib.Sun2();
         this[instance4.name = "sun"] = instance4;
         var instance3 = new lib.sun()
             .setTransform(204, 192);
         this[instance3.name = "target"] = instance3;
-        var instance2 = new lib.sun()
-            .setTransform(1901, 967);
+        var instance2 = new lib.earth()
+            .setTransform(1601, 767);
         this[instance2.name = "start"] = instance2;
         var instance1 = new lib.rocket()
-            .setTransform(1580, 787);
+            .setTransform(1726.6, 763.1);
         this[instance1.name = "rocket"] = instance1;
         this.addTimedChild(instance5, 5, 30)
             .addTimedChild(instance4, 5, 30, {
@@ -401,9 +386,15 @@
     });
 
     lib.stage.assets = {
-        "stars2x": "images/stars2x.png",
-        "stage_atlas_1": "images/stage_atlas_1.json",
-        "stage_atlas_2": "images/stage_atlas_2.json"
+        "rocketBody": "images/rocketBody.png",
+        "Bitmap 1": "images/Bitmap 1.png",
+        "earth": "images/earth.png",
+        "mars": "images/mars.png",
+        "phys_mask": "images/phys_mask.png",
+        "sun": "images/sun.png",
+        "flare1": "images/flare1.png",
+        "flare2": "images/flare2.png",
+        "stars2x": "images/stars2x.png"
     };
 })(PIXI, lib = lib || {});
 var lib;
