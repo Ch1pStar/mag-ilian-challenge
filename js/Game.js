@@ -167,6 +167,10 @@ class Game {
         console.info("Mission complete!");
         document.querySelector("#win-prompt").style.display = "block";
         document.getElementsByName("submission")[0].value = this.userCode.value; // TODO code input
+
+        const constraint = new p2.LockConstraint(this.target, this.rocket);
+        this.world.addConstraint(constraint);
+
     }
 
     init() {
@@ -353,7 +357,7 @@ class Game {
 
         p2.vec2.add(f, f, this._getPlanetGravitation(this.target));
 
-        return p2.vec2.mul(f, f, [10, 10]); // gravitational force multiplier
+        return p2.vec2.mul(f, f, [30, 30]); // gravitational force multiplier
         // return f;
     }
 
