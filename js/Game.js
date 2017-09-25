@@ -230,42 +230,19 @@ class Game {
      * @returns {p2.Body}
      * @private
      */
-    _initPlanet(planet) {
+    _initPlanet(anim) {
         const world = this.world;
-        const body = new p2.Body({
+        const body = new Planet(anim, {
             mass: 0,
             position: [0, 0],
             angle: 0,
             velocity: [0, 0],
             angularVelocity: 0
         });
-        const pMask = planet.pMask;
-        const pos = pMask.toGlobal(new PIXI.Point(0,0));
-        const radius = pMask.width/2;
 
-        const x = pos.x;
-        const y = pos.y;
-        const shape = new p2.Circle({radius});
-
-        body.addShape(shape);
-        body.position.set([x, y]);
-
-        body.sprite = planet;
         world.addBody(body);
-        this[planet.name] = body;
-        this.planets.push(planet);
-
-        body.position = new Proxy(body.position, {
-            set: function(target, property, value, receiver) {
-                target[property] = value;
-                planet.x = target[0] - (pMask.x+pMask.width/2);
-                planet.y = target[1] - (pMask.y+pMask.height/2);
-
-                return true;
-            }
-        });
-
-        pMask.visible = false;
+        this[anim.name] = body;
+        this.planets.push(body);
 
         return body;
     }
@@ -339,23 +316,11 @@ class Game {
         this.noseThrust.alpha = thrusts.nose / 10;
     }
 
-    _getPlanetGravitation(planet) {
-        const rocket = this.rocket;
-        const diff = [];
-        const f = [];
-
-        p2.vec2.sub(diff, planet.position, rocket.position);
-        return p2.vec2.normalize(f, diff);
-
-        // rocket.applyForce(f);
-
-        // return rocket.velocity;
-    }
-
     get rocketActingForce() {
-        const f = this._getPlanetGravitation(this.sun);
+        const r = this.rocket;
+        const f = this.sun.getPullForce(r);
 
-        p2.vec2.add(f, f, this._getPlanetGravitation(this.target));
+        p2.vec2.add(f, f, this.target.getPullForce(r));
 
         return p2.vec2.mul(f, f, [30, 30]); // gravitational force multiplier
         // return f;

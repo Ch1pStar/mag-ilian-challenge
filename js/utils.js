@@ -1,3 +1,1 @@
-const forwardVector = (body) => {
-    return [Math.sin(body.rotation), Math.cos(body.rotation)];
-}
+const forwardVector = (body) => [Math.sin(body.rotation), Math.cos(body.rotation)];
