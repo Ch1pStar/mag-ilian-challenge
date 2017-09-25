@@ -71,7 +71,6 @@ class Rocket extends p2.Body {
         thrustRight.setTransform(-rocketImage.width*.5, rocketImage.height*.5, 1, 1, Math.PI/2);
         this.sprite.addChild(thrustRight);
 
-
         let l = 0;
 
         this.position = new Proxy(this.position, {

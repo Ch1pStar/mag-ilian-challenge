@@ -11,151 +11,144 @@
         this.addChild(instance1);
     });
 
-    lib.pMask_earth = Container.extend(function () {
+    lib.earth_phys_mask = Container.extend(function () {
         Container.call(this);
-        var instance1 = new Sprite(fromFrame("earth_phys_mask"));
+        var instance1 = new Sprite(fromFrame("earth"));
         this.addChild(instance1);
     });
 
     lib.earth = Container.extend(function () {
         Container.call(this);
         var instance2 = new Sprite(fromFrame("earth"));
-        var instance1 = new lib.pMask_earth()
-            .setTransform(83, 80);
+        var instance1 = new lib.earth_phys_mask();
         this[instance1.name = "pMask"] = instance1;
         this.addChild(instance2, instance1);
     });
 
-    lib.pMask_moon = Container.extend(function () {
+    lib.mars_phys_mask = Container.extend(function () {
         Container.call(this);
-        var instance1 = new Sprite(fromFrame("mars"));
+        var instance1 = new Sprite(fromFrame("target"));
         this.addChild(instance1);
     });
 
-    lib.sun = Container.extend(function () {
+    lib.target = Container.extend(function () {
         Container.call(this);
-        var instance2 = new Sprite(fromFrame("mars"))
-            .setTransform(-125, -113);
-        var instance1 = new lib.pMask_moon()
-            .setTransform(-125, -113);
+        var instance2 = new Sprite(fromFrame("target"));
+        var instance1 = new lib.mars_phys_mask();
         this[instance1.name = "pMask"] = instance1;
         this.addChild(instance2, instance1);
     });
 
-    lib.pMask = Container.extend(function () {
+    lib.sun_phys_mask = Container.extend(function () {
         Container.call(this);
-        var instance1 = new Sprite(fromFrame("phys_mask"));
+        var instance1 = new Sprite(fromFrame("sun"));
         this.addChild(instance1);
     });
 
-    lib.flares = Container.extend(function () {
+    lib.radiation = Container.extend(function () {
         Container.call(this);
-        var instance2 = new Sprite(fromFrame("flare2"));
-        var instance1 = new Sprite(fromFrame("flare1"))
-            .setTransform(33, 162);
-        this.addChild(instance2, instance1);
+        var instance1 = new Sprite(fromFrame("sunPulse"));
+        this.addChild(instance1);
     });
 
     lib.Sun2 = MovieClip.extend(function () {
         MovieClip.call(this, {
             duration: 60
         });
-        var instance3 = new lib.flares();
-        this[instance3.name = "flares"] = instance3;
+        var instance3 = new lib.radiation();
+        this[instance3.name = "radiation"] = instance3;
         var instance2 = new Sprite(fromFrame("sun"));
-        var instance1 = new lib.pMask()
-            .setTransform(172, 170)
-            .setAlpha(0.21);
+        var instance1 = new lib.sun_phys_mask();
         this[instance1.name = "pMask"] = instance1;
         this.addTimedChild(instance3, 0, 60, {
                 "0": {
-                    x: 404,
-                    y: -69,
-                    a: 0.21
+                    x: -17,
+                    y: -17,
+                    a: 0
                 },
                 "1": {
-                    a: 0.24
+                    a: 0.04
                 },
                 "2": {
-                    a: 0.27
+                    a: 0.07
                 },
                 "3": {
-                    a: 0.29
+                    a: 0.1
                 },
                 "4": {
-                    a: 0.32
+                    a: 0.14
                 },
                 "5": {
-                    a: 0.35
+                    a: 0.17
                 },
                 "6": {
-                    a: 0.38
+                    a: 0.21
                 },
                 "7": {
-                    a: 0.4
+                    a: 0.24
                 },
                 "8": {
-                    a: 0.43
+                    a: 0.28
                 },
                 "9": {
-                    a: 0.46
+                    a: 0.31
                 },
                 "10": {
-                    a: 0.48
+                    a: 0.34
                 },
                 "11": {
-                    a: 0.51
+                    a: 0.38
                 },
                 "12": {
-                    a: 0.54
+                    a: 0.41
                 },
                 "13": {
-                    a: 0.57
+                    a: 0.45
                 },
                 "14": {
-                    a: 0.59
+                    a: 0.48
                 },
                 "15": {
-                    a: 0.62
+                    a: 0.52
                 },
                 "16": {
-                    a: 0.64
+                    a: 0.55
                 },
                 "17": {
-                    a: 0.67
+                    a: 0.59
                 },
                 "18": {
-                    a: 0.7
+                    a: 0.62
                 },
                 "19": {
-                    a: 0.73
+                    a: 0.66
                 },
                 "20": {
-                    a: 0.75
+                    a: 0.69
                 },
                 "21": {
-                    a: 0.78
+                    a: 0.72
                 },
                 "22": {
-                    a: 0.81
+                    a: 0.76
                 },
                 "23": {
-                    a: 0.84
+                    a: 0.79
                 },
                 "24": {
-                    a: 0.86
+                    a: 0.83
                 },
                 "25": {
-                    a: 0.89
+                    a: 0.86
                 },
                 "26": {
-                    a: 0.92
+                    a: 0.9
                 },
                 "27": {
-                    a: 0.95
+                    a: 0.93
                 },
                 "28": {
-                    a: 0.97
+                    a: 0.96
                 },
                 "29": {
                     a: 1
@@ -252,14 +245,16 @@
                 }
             })
             .addTimedChild(instance2)
-            .addTimedChild(instance1);
+            .addTimedChild(instance1, 0, 1);
     });
 
     lib.background = Container.extend(function () {
         Container.call(this);
+        var instance2 = new Sprite(fromFrame("bg"))
+            .setTransform(-960, -569, 0.769, 0.618);
         var instance1 = new Sprite(fromFrame("stars2x"))
-            .setTransform(-960, -572, 0.651, 0.661);
-        this.addChild(instance1);
+            .setTransform(-964, -569, 0.651, 0.661);
+        this.addChild(instance2, instance1);
     });
 
     lib.stage = MovieClip.extend(function () {
@@ -276,14 +271,13 @@
         this[instance5.name = "background"] = instance5;
         var instance4 = new lib.Sun2();
         this[instance4.name = "sun"] = instance4;
-        var instance3 = new lib.sun()
-            .setTransform(204, 192);
+        var instance3 = new lib.target();
         this[instance3.name = "target"] = instance3;
         var instance2 = new lib.earth()
             .setTransform(1601, 767);
         this[instance2.name = "start"] = instance2;
         var instance1 = new lib.rocket()
-            .setTransform(1726.6, 763.1);
+            .setTransform(1709.45, 609.7);
         this[instance1.name = "rocket"] = instance1;
         this.addTimedChild(instance5, 5, 30)
             .addTimedChild(instance4, 5, 30, {
@@ -387,14 +381,12 @@
 
     lib.stage.assets = {
         "rocket": "images/rocket.png",
-        "earth_phys_mask": "images/earth_phys_mask.png",
         "earth": "images/earth.png",
-        "mars": "images/mars.png",
-        "phys_mask": "images/phys_mask.png",
+        "target": "images/target.png",
         "sun": "images/sun.png",
-        "flare1": "images/flare1.png",
-        "flare2": "images/flare2.png",
-        "stars2x": "images/stars2x.png"
+        "sunPulse": "images/sunPulse.png",
+        "stars2x": "images/stars2x.png",
+        "bg": "images/bg.png"
     };
 })(PIXI, lib = lib || {});
 var lib;

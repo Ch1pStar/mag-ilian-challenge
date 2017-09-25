@@ -322,7 +322,9 @@ class Game {
         const r = this.rocket;
         const t = this.target;
 
-        r.applyForce(this.rocketActingForce);
+        // console.log(this.rocketActingForce);
+
+        // r.applyForce(this.rocketActingForce);
 
         this._handleNavigation(this.navigationOutput);
     }
