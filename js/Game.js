@@ -23,43 +23,39 @@ function navigate(data) {
     let forward = false, backward = false, left = false, right = false;
 
     let distance = getDistance(data.rocket, data.target);
-    const force = data.rocket.actingForce;
+    // const force = data.rocket.actingForce;
     const vel = data.rocket.velocity;
     const speed = p2.vec2.len(vel);
-    const forceLen = p2.vec2.len(force);
+    // const forceLen = p2.vec2.len(force);
     const b = data.rocket.body;
 
-    if (distance > 800) {
-        let angleDeltaSin = Math.sin(data.rocketToTargetAngle);
-        if (data.rocketToTargetAngle > 0.1) {
-            right = true;
-        } else if (data.rocketToTargetAngle < -0.1) {
-            left = true;
-        }
-
-        if (!left && !right && getVelocity(vel) < 4000) {
-            forward = true;
-        }
+    if (data.actingForce && distance > 500) { //not landing
+        // run away from gravity
+        if (data.actingForce >= 0 && data.actingForce < 3.1) left = true;
+        else if (data.actingForce <= 0 && data.actingForce > -3.1) right = true;
+        forward = true;
     } else {
-        if (data.rocketToTargetAngle >= 0 && data.rocketToTargetAngle < 3) {
-            left = true;
-        } else if (data.rocketToTargetAngle <= 0 && data.rocketToTargetAngle > -3) {
-            right = true;
+        if (distance > 600) {
+            if (data.rocketToTargetAngle > 0.05) right = true;
+            else if (data.rocketToTargetAngle < -0.05) left = true;
+
+            if (!left && !right && speed < 200) forward = true;
+        } else {
+            if (data.rocketToTargetAngle >= 0 && data.rocketToTargetAngle < 3.1) left = true;
+            else if (data.rocketToTargetAngle <= 0 && data.rocketToTargetAngle > -3.1) right = true;
+            if (!left && !right) {
+                if (speed > MAX_LANDING_VELOCITY * 1.5) forward = true;
+                else if (speed < MAX_LANDING_VELOCITY / 4) backward = true;
+            }
         }
-        if (!left && !right) {
-            if (getVelocity(vel) > MAX_LANDING_VELOCITY) forward = true;
-            else if (getVelocity(vel) < MAX_LANDING_VELOCITY / 4) backward = true; // TODO doesn't seem to take into consideration ext force
-        }
-        // SOME DISTANCE CALCULATIONS - forward if too fast after rotation, backaward if not moving towards target
     }
 
     // Detect if we're drifting and correct it(forces like gravity cause drift)
 
-
-    // console.log(vel);
-    if(forceLen > 0) {
-        // data.rocket.ignoreGravity();
-    }
+    // // console.log(vel);
+    // if(forceLen > 0) {
+    //     // data.rocket.ignoreGravity();
+    // }
 
     return {forward, backward, left, right};
 }
@@ -70,7 +66,7 @@ src.shift();
 src.length -= 1;
 
 const START_SCRIPT = src.join('\n');
-const MAX_LANDING_VELOCITY = 70;
+const MAX_LANDING_VELOCITY = 30;
 const TOLERABLE_ANGLE_DEVIATION = Math.PI / 12; // 15 degrees
 const SIN_COS_TOLERATION = Math.sin( TOLERABLE_ANGLE_DEVIATION ); // 0.2588...
 const HALF_PI = Math.PI / 2;
@@ -297,7 +293,7 @@ class Game {
         if (command.right) {
             if (thrusts.right < 10) thrusts.right++;
             this.rocket.rotation = this.rocket.rotation + .01;
-        } else if (thrusts.right > 0) thrusts.right --;
+        } else if (thrusts.right > 0) thrusts.right--;
 
         this.rocket.rotation = this.rocket.rotation % (2 * Math.PI);
 
@@ -334,22 +330,26 @@ class Game {
     }
 
     get navigationOutput() {
+
+        const actingForceDirection = this.rocketActingForce;
+        const actingForceValue = p2.vec2.len(actingForceDirection);
+        const actingForceAngle = this._planetToObjectAngle([
+            actingForceDirection[0] + this.rocket.position[0],
+            actingForceDirection[1] + this.rocket.position[1]
+        ]);
+
         let output = this.navigate({ // TODO catch user input errors
             rocket: {
                 x: this.rocket.position[0],
                 y: this.rocket.position[1],
                 rotation: this.rocket.rotation,
-                velocity: {
-                    x: this.rocket.velocity[0],
-                    y: this.rocket.velocity[1]
-                },
-                actingForce: this.rocketActingForce,
-                ignoreGravity: () => this.rocket.applyForce(p2.vec2.negate([], this.rocketActingForce)),
+                velocity: this.rocket.velocity,
+                ignoreGravity: () => this.rocket.applyForce(p2.vec2.negate([], actingForceDirection)),
                 body: this.rocket,
             },
+            actingForce: actingForceValue > 10 ? actingForceAngle : null, // ignore weak forces
             target: {x: this.target.position[0], y: this.target.position[1]},
-            rocketToTargetAngle: this._planetToRocketAngle(),
-            forces: {x: 0, y: 0}, // TODO
+            rocketToTargetAngle: this._planetToObjectAngle(this.target.position),
         });
 
         // filter non allowed commands
@@ -366,15 +366,16 @@ class Game {
 
     /**
      * rocket rotation 0 is up, grows clockwise
+     * target {Array[2]} x, y
      * @returns {number} Relative angle between rocket oreitnation and target center.
      *  [-Pi; 0) target to left of rocket
      *  (0, Pi] target to right of rocket
      * @private
      */
-    _planetToRocketAngle() {
+    _planetToObjectAngle(target) {
         let planetAngle = Math.atan2( // target to rocket to abcissa
-            this.rocket.position[1] - this.target.position[1],
-            this.target.position[0] - this.rocket.position[0]
+            this.rocket.position[1] - target[1],
+            target[0] - this.rocket.position[0]
         );
 
         let rocketAngle = (Math.PI / 2 - this.rocket.rotation ) % (2 * Math.PI); // rocket vector to abcissa

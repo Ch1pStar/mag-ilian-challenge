@@ -17,7 +17,7 @@ class Planet extends p2.Body {
         this.sprite = sprite;
         this.name = sprite.name;
 
-        this.gravityRadius = 500;
+        this.gravityRadius = 600;
         const gravityMask = new PIXI.Graphics();
 
         this.position = new Proxy(this.position, {
@@ -43,7 +43,7 @@ class Planet extends p2.Body {
         const len = p2.vec2.len(diff);
         const res = len < rad ? p2.vec2.normalize(f, diff) : [0,0];
 
-        p2.vec2.mul(res, res, [30, 30]); // gravitational force multiplier
+        p2.vec2.mul(res, res, [50, 50]); // gravitational force multiplier
 
         // console.log(this.sprite.name, res);
 
