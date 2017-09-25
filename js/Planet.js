@@ -15,6 +15,9 @@ class Planet extends p2.Body {
         this.position.set([x, y]);
 
         this.sprite = sprite;
+        this.name = sprite.name;
+
+        const gravityMask = new PIXI.Graphics();
 
         this.position = new Proxy(this.position, {
             set: function(target, property, value, receiver) {
@@ -34,11 +37,13 @@ class Planet extends p2.Body {
         const f = [];
 
         p2.vec2.sub(diff, this.position, object.position);
-        return p2.vec2.normalize(f, diff);
 
-        // rocket.applyForce(f);
+        const len = p2.vec2.len(diff);
+        const res = len < 500 ? p2.vec2.normalize(f, diff) : [0,0];
 
-        // return rocket.velocity;
+        // console.log(this.sprite.name, res);
+
+        return res;
     }
 
 }

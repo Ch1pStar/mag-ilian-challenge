@@ -294,8 +294,8 @@
         var instance3 = new lib.sun()
             .setTransform(204, 192);
         this[instance3.name = "target"] = instance3;
-        var instance2 = new lib.earth()
-            .setTransform(1601, 767);
+        var instance2 = new lib.sun()
+            .setTransform(1901, 967);
         this[instance2.name = "start"] = instance2;
         var instance1 = new lib.rocket()
             .setTransform(1580, 787);

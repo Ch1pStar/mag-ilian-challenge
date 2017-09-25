@@ -220,9 +220,11 @@ class Game {
         const animateStage = this.animateStage;
         const sun = animateStage.sun;
         const moon = animateStage.target;
+        const earth = animateStage.start;
 
         this._initPlanet(sun);
         this.target = this._initPlanet(moon);
+        this.start = this._initPlanet(earth);
     }
 
     /**
@@ -318,12 +320,19 @@ class Game {
 
     get rocketActingForce() {
         const r = this.rocket;
-        const f = this.sun.getPullForce(r);
+        const f = [0,0];
+        const ps = this.planets;
+        const res = [0,0];
 
-        p2.vec2.add(f, f, this.target.getPullForce(r));
+        for(let i=0;i<ps.length;i++) {
+            const p = ps[i];
 
-        return p2.vec2.mul(f, f, [30, 30]); // gravitational force multiplier
-        // return f;
+            p2.vec2.add(f, f, p.getPullForce(r));
+        }
+
+        p2.vec2.mul(res, f, [30, 30]);
+
+        return res; // gravitational force multiplier
     }
 
 
@@ -335,7 +344,7 @@ class Game {
 
         r.applyForce(this.rocketActingForce);
 
-        this._handleNavigation(this.navigationOutput);
+        // this._handleNavigation(this.navigationOutput);
     }
 
     get navigationOutput() {
