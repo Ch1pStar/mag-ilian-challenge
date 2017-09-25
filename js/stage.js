@@ -7,13 +7,13 @@
 
     lib.rocket = Container.extend(function () {
         Container.call(this);
-        var instance1 = new Sprite(fromFrame("rocketBody"));
+        var instance1 = new Sprite(fromFrame("rocket"));
         this.addChild(instance1);
     });
 
     lib.pMask_earth = Container.extend(function () {
         Container.call(this);
-        var instance1 = new Sprite(fromFrame("Bitmap 1"));
+        var instance1 = new Sprite(fromFrame("earth_phys_mask"));
         this.addChild(instance1);
     });
 
@@ -386,8 +386,8 @@
     });
 
     lib.stage.assets = {
-        "rocketBody": "images/rocketBody.png",
-        "Bitmap 1": "images/Bitmap 1.png",
+        "rocket": "images/rocket.png",
+        "earth_phys_mask": "images/earth_phys_mask.png",
         "earth": "images/earth.png",
         "mars": "images/mars.png",
         "phys_mask": "images/phys_mask.png",

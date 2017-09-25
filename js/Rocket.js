@@ -40,34 +40,35 @@ class Rocket extends p2.Body {
         // this.overlay.addChild(g);
         // this.overlay.addChild(s);
 
-        const thrust = this.thrust = PIXI.Sprite.fromImage('images/thrust.png');
-        const thrustRight = this.thrustRight = PIXI.Sprite.fromImage('images/thrust.png');
-        const thrustLeft = this.thrustLeft = PIXI.Sprite.fromImage('images/thrust.png');
-        const thrustNose = this.thrustNose = PIXI.Sprite.fromImage('images/thrust.png');
+        const rocketImage = sprite.children[0];
+        const thrustTxt = PIXI.Texture.fromImage('images/thrust.png');
+        const thrust = this.thrust = new PIXI.Sprite(thrustTxt);
+        const thrustRight = this.thrustRight = new PIXI.Sprite(thrustTxt);
+        const thrustLeft = this.thrustLeft = new PIXI.Sprite(thrustTxt);
+        const thrustNose = this.thrustNose = new PIXI.Sprite(thrustTxt);
 
         thrust.name = 'thrust';
         thrust.anchor.set(.5);
         thrust.alpha = 0;
-        thrust.setTransform(4, 90, 1, 1, 0);
+        thrust.setTransform(rocketImage.width/2, rocketImage.height*1.5, 1, 1, 0);
         this.sprite.addChild(thrust);
 
         thrustNose.name = 'thrustNose';
         thrustNose.anchor.set(.5);
         thrustNose.alpha = 0;
-        thrustNose.setTransform(85, -25, 1, 1, Math.PI);
+        thrustNose.setTransform(rocketImage.width/2, -rocketImage.height*.5, 1, 1, Math.PI);
         this.sprite.addChild(thrustNose);
 
         thrustLeft.name = 'thrustLeft';
         thrustLeft.anchor.set(.5);
         thrustLeft.alpha = 0;
-        thrustLeft.setTransform(90, 60, 1, 1, Math.PI/2 + Math.PI);
+        thrustLeft.setTransform(rocketImage.width*1.5, rocketImage.height*.5, 1, 1, Math.PI/2 + Math.PI);
         this.sprite.addChild(thrustLeft);
-
 
         thrustRight.name = 'thrustRight';
         thrustRight.anchor.set(.5);
         thrustRight.alpha = 0;
-        thrustRight.setTransform(0, 0, 1, 1, Math.PI/2);
+        thrustRight.setTransform(-rocketImage.width*.5, rocketImage.height*.5, 1, 1, Math.PI/2);
         this.sprite.addChild(thrustRight);
 
 
@@ -78,7 +79,7 @@ class Rocket extends p2.Body {
                 target[property] = value;
                 sprite.x = target[0];
                 sprite.y = target[1];
-                sprite.rotation = this.rotation - .6; // adjust for natural rocket texture rotation
+                sprite.rotation = this.rotation;// - .6; // adjust for natural rocket texture rotation
                 // sprite.rotation = l%(Math.PI*2); l+=.1;
                 // thrust.rotation = l%(Math.PI*2); l+=.05;
                 
