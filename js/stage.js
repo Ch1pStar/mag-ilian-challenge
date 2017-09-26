@@ -25026,61 +25026,42 @@
             }, 40);
     });
 
-    lib.earth_g_mask = Container.extend(function () {
-        Container.call(this);
-        var instance1 = new Sprite(fromFrame("earth_gravity_mask"));
-        this.addChild(instance1);
-    });
-
     lib.earth_phys_mask = Container.extend(function () {
         Container.call(this);
-        var instance1 = new Sprite(fromFrame("earth"));
+        var instance1 = new Graphics()
+            .drawCommands(shapes.stage[50]);
         this.addChild(instance1);
     });
 
     lib.earth = Container.extend(function () {
         Container.call(this);
-        var instance3 = new Sprite(fromFrame("earth"));
-        var instance2 = new lib.earth_phys_mask();
-        this[instance2.name = "pMask"] = instance2;
-        var instance1 = new lib.earth_g_mask()
-            .setTransform(-148, -156);
-        this[instance1.name = "gMask"] = instance1;
-        this.addChild(instance3, instance2, instance1);
-    });
-
-    lib.mars_g_mask = Container.extend(function () {
-        Container.call(this);
-        var instance1 = new Sprite(fromFrame("mars_gravity_mask"));
-        this.addChild(instance1);
+        var instance2 = new Sprite(fromFrame("earth"));
+        var instance1 = new lib.earth_phys_mask();
+        this[instance1.name = "pMask"] = instance1;
+        this.addChild(instance2, instance1);
     });
 
     lib.mars_phys_mask = Container.extend(function () {
         Container.call(this);
-        var instance1 = new Sprite(fromFrame("target"));
+        var instance1 = new Graphics()
+            .drawCommands(shapes.stage[51]);
         this.addChild(instance1);
     });
 
     lib.target = Container.extend(function () {
         Container.call(this);
-        var instance3 = new Sprite(fromFrame("target"));
-        var instance2 = new lib.mars_phys_mask();
-        this[instance2.name = "pMask"] = instance2;
-        var instance1 = new lib.mars_g_mask()
-            .setTransform(-166, -179.25);
-        this[instance1.name = "gMask"] = instance1;
-        this.addChild(instance3, instance2, instance1);
-    });
-
-    lib.sun_g_mask = Container.extend(function () {
-        Container.call(this);
-        var instance1 = new Sprite(fromFrame("sun_gravity_mask"));
-        this.addChild(instance1);
+        var instance2 = new Sprite(fromFrame("target"));
+        var instance1 = new lib.mars_phys_mask()
+            .setTransform(79.2, 59.2);
+        this[instance1.name = "pMask"] = instance1;
+        this.addChild(instance2, instance1);
     });
 
     lib.sun_phys_mask = Container.extend(function () {
         Container.call(this);
-        var instance1 = new Sprite(fromFrame("sun"));
+        var instance1 = new Graphics()
+            .drawCommands(shapes.stage[50])
+            .setTransform(0, 0, 1.825, 1.825);
         this.addChild(instance1);
     });
 
@@ -25094,14 +25075,12 @@
         MovieClip.call(this, {
             duration: 60
         });
-        var instance4 = new lib.radiation();
-        this[instance4.name = "radiation"] = instance4;
-        var instance3 = new Sprite(fromFrame("sun"));
-        var instance2 = new lib.sun_phys_mask();
-        this[instance2.name = "pMask"] = instance2;
-        var instance1 = new lib.sun_g_mask();
-        this[instance1.name = "gMask"] = instance1;
-        this.addTimedChild(instance4, 0, 60, {
+        var instance3 = new lib.radiation();
+        this[instance3.name = "radiation"] = instance3;
+        var instance2 = new Sprite(fromFrame("sun"));
+        var instance1 = new lib.sun_phys_mask();
+        this[instance1.name = "pMask"] = instance1;
+        this.addTimedChild(instance3, 0, 60, {
                 "0": {
                     x: -17,
                     y: -17,
@@ -25285,19 +25264,8 @@
                     a: 0
                 }
             })
-            .addTimedChild(instance3)
             .addTimedChild(instance2)
-            .addTimedChild(instance1, 0, 60, {
-                "0": {
-                    x: -584.8,
-                    y: -580.8,
-                    sx: 1.961,
-                    sy: 1.961
-                },
-                "29": {
-                    y: -580.7
-                }
-            });
+            .addTimedChild(instance1);
     });
 
     lib.background = Container.extend(function () {
@@ -25324,13 +25292,13 @@
         var instance6 = new lib.Sun2();
         this[instance6.name = "sun"] = instance6;
         var instance5 = new lib.target()
-            .setTransform(101.55, 111.15, 0.612, 0.612);
+            .setTransform(156.9, 405.25, 0.612, 0.612);
         this[instance5.name = "target"] = instance5;
         var instance4 = new lib.earth()
             .setTransform(1601, 767);
         this[instance4.name = "start"] = instance4;
         var instance3 = new lib.rocket()
-            .setTransform(1709.45, 609.7);
+            .setTransform(1743.75, 725.4);
         this[instance3.name = "rocket"] = instance3;
         var instance2 = new lib.thrust()
             .setTransform(1741.05, 749.7)
@@ -25343,14 +25311,14 @@
         this.addTimedChild(instance7, 5, 30)
             .addTimedChild(instance6, 5, 30, {
                 "5": {
-                    x: 532.75,
+                    x: 852.45,
                     y: 596.9,
                     sx: 0.666,
                     sy: 0.666,
                     a: 0
                 },
                 "6": {
-                    x: 532.792,
+                    x: 852.487,
                     y: 596.941,
                     a: 0.04
                 },
@@ -25394,7 +25362,7 @@
                     a: 0.48
                 },
                 "20": {
-                    x: 532.708,
+                    x: 852.413,
                     y: 596.873,
                     a: 0.52
                 },
@@ -25438,7 +25406,7 @@
                     a: 0.96
                 },
                 "34": {
-                    x: 532.75,
+                    x: 852.45,
                     y: 596.9,
                     a: 1
                 }
@@ -25457,11 +25425,8 @@
         "rocketBody": "images/rocketBody.png",
         "fire": "images/fire.png",
         "gradient": "images/gradient.png",
-        "earth_gravity_mask": "images/earth_gravity_mask.png",
         "earth": "images/earth.png",
-        "mars_gravity_mask": "images/mars_gravity_mask.png",
         "target": "images/target.png",
-        "sun_gravity_mask": "images/sun_gravity_mask.png",
         "sun": "images/sun.png",
         "sunPulse": "images/sunPulse.png",
         "stars2x": "images/stars2x.png",

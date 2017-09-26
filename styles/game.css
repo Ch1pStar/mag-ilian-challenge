@@ -20,7 +20,6 @@ body {
 }
 
 #side-panel {
-    display: none;
     position: absolute;
     right: 0;
     top: 0;
@@ -35,8 +34,43 @@ body {
     width: 100px;
     height: 50px;
     left: -120px;
+    bottom: 29px;
     position: absolute;
     opacity: 0;
+}
+
+#side-panel #show-side-panel input {
+    width: 100%;
+    height: 100%;
+    background: #0ac2fe;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0,0,0, 0.13);
+}
+
+#side-panel #show-side-panel input:hover {
+    background: #3dc9fc;
+    box-shadow: 0 0 13px rgba(0,0,0, 0.19);
+}
+
+#side-panel #show-side-panel input:active {
+    background: #09ace3;
+}
+
+#side-panel #show-side-panel input:focus {
+    outline: none;
+}
+
+#side-panel #show-side-panel img {
+    pointer-events: none;
+}
+
+#side-panel #show-panel-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #side-panel #code-container {
@@ -61,12 +95,269 @@ body {
     align-items: center;
 }
 
+#side-panel #launch-button {
+    background: #0ac2fe;
+    border: none;
+    border-radius: 5px;
+    color: #1c1c68;
+    font-weight: 600;
+}
+
+#side-panel #launch-button:hover {
+    background: #3dc9fc;
+    cursor: pointer;
+}
+
+#side-panel #launch-button:active {
+    background: #09ace3;
+    cursor: pointer;
+}
+
 #win-prompt {
+    display: none;
     transform: translate(-50%, -50%);
     position: absolute;
-    padding: 100px;
     top: 50%;
     left: 50%;
-    background-color: black;
+    background: #0f0932;
+    font-family: Segoe UI;
+    padding: 85px;
+    padding-top: 100px;
+    box-shadow: 2px 1px 20px 0 rgba(0,0,0, 0.2);
+}
+
+#win-prompt img {
+    position: absolute;
+    top: -95px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+#win-prompt label,
+.title {
+    color: #b0bdfe;
+}
+
+#win-prompt .title {
+    font-weight: 400;
+}
+
+#win-prompt form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5px;
+}
+
+#win-prompt label {
+    padding-bottom: 6px;
+}
+
+#win-prompt form input {
+    -webkit-appearance: none;
+    width: 250px;
+    border: none;
+    border-radius: 5px;
+    padding: 15px;
+    background: #4d496a;
+    margin-bottom: 25px;
+    color: #fff;
+    font-size: 1rem;
+    text-align: center;
+}
+
+#win-prompt form input:hover {
+    background: #565276;
+}
+
+#win-prompt form input[type="email"] {
+    margin-bottom: 0;
+}
+
+#win-prompt form input[type="text"] {
+    text-transform: uppercase;
+}
+
+#win-prompt form input:focus,
+#win-prompt form button:focus {
+    outline: none;
+}
+
+#win-prompt form button {
+    -webkit-appearance: none;
+    width: 280px;
+    border: none;
+    border-radius: 5px;
+    padding: 18px;
+    background: #0ac2fe;
+    text-transform: uppercase;
+    margin-top: 35px;
+    font-size: 0.94rem;
+    cursor: pointer;
+}
+
+#win-prompt form button:hover {
+    background: #3dc9fc;
+}
+
+#win-prompt form button:active {
+    background: #09ace3;
+}
+
+.splash-prompt-container,
+.condition-prompt-container {
     display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: #0f0932;
+    transform: translate(-50%, -50%);
+    font-family: Segoe UI;
+    padding: 25px 35px 65px 65px;
+    color: #fff;
+    max-width: 500px;
+    box-shadow: 2px 1px 20px rgba(0,0,0, 0.2);
+}
+
+.splash-prompt-container {
+    text-align: left;
+    padding: 40px 65px 65px 65px;
+}
+
+.splash-prompt-container h3 {
+    text-align: center;
+}
+
+.splash-prompt-container h3 span {
+    display: block;
+}
+
+.splash-prompt span {
+    display: block;
+}
+
+h3.title {
+    margin-top: 0;
+    margin-bottom: 40px;
+}
+
+.splash-prompt-container .email {
+    font-style: italic;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    cursor: pointer;
+    padding: 8px;
+    transform: scale(0.9);
+}
+
+.close:hover {
+    transform: scale(1);
+}
+
+.splash-prompt,
+.condition-prompt {
+    max-height: 300px;
+    overflow: auto;
+}
+
+.condition-prompt .content {
+    height: 100%;
+    padding-right: 15px;
+}
+
+.condition-prompt .content h3 {
+    padding: 0 70px;
+    text-align: center;
+    margin-top: 0;
+}
+
+.condition-prompt .content .bold {
+    font-weight: 700;
+}
+
+.condition-prompt .content span {
+    display: block;
+}
+
+.splash-btn,
+.condition-btn {
+    position: absolute;
+    bottom: 9px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    width: 65px;
+    height: 50px;
+    outline: none;
+    cursor: pointer;
+    color: #1c1c68;
+    box-shadow: 0 0 10px rgba(0,0,0, 0.13);
+}
+
+.splash-btn {
+    left: 13px;
+    background: #8fc648;
+}
+
+.condition-btn {
+    left: 93px;
+    background: #0ac2fe;
+}
+
+.splash-btn:hover {
+    background: #a2e051;
+}
+
+.condition-btn:hover {
+    background: #3dc9fc;
+}
+
+.condition-btn:active {
+    background: #09ace3;
+}
+
+.splash-btn:active {
+    background: #7dad3e;
+}
+
+.splash-btn:hover,
+.condition-btn:hover {
+    box-shadow: 0 0 13px rgba(0,0,0,0.19);
+}
+
+.splash-btn-container img {
+    left: 37px;
+}
+
+.condition-btn-container img {
+    left: 116px;
+}
+
+.splash-btn-container img,
+.condition-btn-container img {
+    position: absolute;
+    bottom: 22px;
+    pointer-events: none;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 2px;
+    background: rgba(255,255,255,0.25);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background: rgba(255,255,255,0.25);
+}
+
+::-webkit-scrollbar-corner {
+    border-radius: 10px;
 }

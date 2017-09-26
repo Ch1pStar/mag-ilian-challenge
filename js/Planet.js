@@ -12,7 +12,7 @@ class Planet extends p2.Body {
 
         const x = pos.x;
         const y = pos.y;
-        const shape = new p2.Circle({radius});
+        const shape = this.shape = new p2.Circle({radius});
 
         this.addShape(shape);
         this.position.set([x + width/2, y + height/2]);
@@ -22,34 +22,49 @@ class Planet extends p2.Body {
 
         const gMask = sprite.gMask;
 
-        gMask.scale.set(1);
+        if(gMask){  	
+	        gMask.scale.set(1);
+	    	gMask.visible = false;
+        }
 
-    	gMask.visible = false;
-    	this.gravityRadius = gMask.width/2;
+    	const gr = this.gravityRadius = options.gravityRadius;
 
         this.position = new Proxy(this.position, {
             set: function(target, property, value, receiver) {
                 target[property] = value;
-                sprite.x = target[0] - (pMask.x+width/2);
-                sprite.y = target[1] - (pMask.y+height/2);
+                sprite.x = target[0] - sprite.width/2;
+                sprite.y = target[1] - sprite.height/2;
 
                 return true;
             }
         });
 
+        // pMask.alpha = 1;
         pMask.visible = false;
 
-        const g = new PIXI.Graphics();
+        const g = PIXI.Sprite.fromImage('images/sunPulse.png');
 
-        g.beginFill(0xcc00dd)
-        g.drawCircle(this.gravityRadius, this.gravityRadius, this.gravityRadius);
-        g.endFill();
-        g.x = sprite.x - this.gravityRadius/2;
-        g.y = sprite.y - this.gravityRadius/2;
-        g.alpha = .5;
+        g.anchor.set(.5);
+        g.width = gr*2;
+        g.height = gr*2;
+        g.x = sprite.x +sprite.width/2;
+        g.y = sprite.y +sprite.height/2;
+
+
+        // phys mask
+        // const ps = PIXI.Sprite.fromImage('images/sunPulse.png');
+
+        // // ps.anchor.set(.5);
+        // ps.width = pMask.width*scale;
+        // ps.height = pMask.height*scale;
+        // // ps.x = sprite.x +sprite.width/2;
+        // // ps.y = sprite.y +sprite.height/2;
+        // ps.x = x;
+        // ps.y = y;
+
 
         const ov = this.overlay  = new PIXI.Container();
-        // ov.addChild(g);
+        ov.addChild(g);
     }
 
     getPullForce(object) {

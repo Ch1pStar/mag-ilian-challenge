@@ -1,6 +1,9 @@
+
 class Rocket extends p2.Body {
 
     constructor(sprite, thrustMc, options) {
+        sprite.scale.set(.4);
+
         Object.assign(options, {
             position: [sprite.x-sprite.width, sprite.y-sprite.height],
         });
@@ -11,6 +14,13 @@ class Rocket extends p2.Body {
             height: sprite.height,
         });
 
+        this.thrusts = {
+            left: 0,
+            right: 0,
+            tail: 0,
+            nose: 0,
+        }
+
         this.addShape(shape);
         this.sprite = sprite;
         sprite.pivot.x = sprite.width/2;
@@ -18,52 +28,32 @@ class Rocket extends p2.Body {
 
         this.overlay = new PIXI.Container();
 
-         const g = new PIXI.Graphics();
-         g.beginFill(0xff00ff);
-         g.drawRect(-shape.width/2, -shape.height/2, shape.width, shape.height);
-         g.endFill();
-         g.alpha = 0.6;
-        
-        // window.a = g;
-
-        // const s = PIXI.Sprite.fromImage('images/ar.png');
-        // s.width = sprite.width;
-        // s.height = sprite.height;
-        
-        // s.x = sprite.x;
-        // s.y = sprite.y;
-        // s.anchor.set(0.5)
-        // s.alpha = .5;
-        
-        // window.s = s;
-        
-        // this.overlay.addChild(g);
-        // this.overlay.addChild(s);
-
         const rocketImage = sprite.children[0];
-        const thrust = this.thrust = new thrustMc();
-        const thrustRight = this.thrustRight = new thrustMc();
-        const thrustLeft = this.thrustLeft = new thrustMc();
-        const thrustNose = this.thrustNose = new thrustMc();
+        const thrustTxt = PIXI.Texture.fromImage('images/thrust.png');
+        const sideThrustTxt = PIXI.Texture.fromImage('images/smoke.png');
+        const thrust = this.thrust = new PIXI.Sprite(thrustTxt);
+        const thrustRight = this.thrustRight = new PIXI.Sprite(sideThrustTxt);
+        const thrustLeft = this.thrustLeft = new PIXI.Sprite(sideThrustTxt);
+        const thrustNose = this.thrustNose = new PIXI.Sprite(sideThrustTxt);
 
         thrust.name = 'thrust';
         thrust.alpha = 0;
-        thrust.setTransform(rocketImage.width/2-15, rocketImage.height-10, 1, 1, 0);
+        thrust.setTransform(rocketImage.width/2-35, rocketImage.height-10, 1, 1, 0);
         this.sprite.addChild(thrust);
 
         thrustNose.name = 'thrustNose';
         thrustNose.alpha = 0;
-        thrustNose.setTransform(rocketImage.width/2+17, 0, 1, 1, Math.PI);
+        thrustNose.setTransform(rocketImage.width/2+10, 0, 1, 1, Math.PI);
         this.sprite.addChild(thrustNose);
 
         thrustLeft.name = 'thrustLeft';
         thrustLeft.alpha = 0;
-        thrustLeft.setTransform(rocketImage.width-17, rocketImage.height/2+15, 1, 1, Math.PI/2 + Math.PI);
+        thrustLeft.setTransform(15, rocketImage.height/2-15, 1, 1, Math.PI/2);
         this.sprite.addChild(thrustLeft);
 
         thrustRight.name = 'thrustRight';
         thrustRight.alpha = 0;
-        thrustRight.setTransform(17, rocketImage.height/2-15, 1, 1, Math.PI/2);
+        thrustRight.setTransform(rocketImage.width-15, rocketImage.height/2+5, 1, 1, Math.PI/2 + Math.PI);
         this.sprite.addChild(thrustRight);
 
         let l = 0;
@@ -76,20 +66,10 @@ class Rocket extends p2.Body {
                 sprite.rotation = this.rotation;// - .6; // adjust for natural rocket texture rotation
                 // sprite.rotation = l%(Math.PI*2); l+=.1;
                 // thrust.rotation = l%(Math.PI*2); l+=.05;
-                
-
-                g.position.x = target[0];
-                g.position.y = target[1];
-                g.rotation = this.rotation;
-
-                // s.x = target[0];
-                // s.y = target[1];
-                // s.rotation = this.rotation; // adjust for natural rocket texture rotation
 
                 return true;
             }
         });
-
     }
 
     init() {
@@ -111,8 +91,58 @@ class Rocket extends p2.Body {
         return new lib.landing_rocket();
     }
 
+    update(command) {
+        if (command.stop) {
+            // this.velocity = [this.velocity, 0];
+            p2.vec2.mul(this.velocity, this.velocity, [0.95, 0.95]);
+            return ;
+        }
+        if (command.forward) {
+            if (this.thrusts.tail < 10) this.thrusts.tail++;
+            this._thrust(THRUST_SPEED);
+        } else if (this.thrusts.tail > 0) this.thrusts.tail--;
+
+        if (command.backward) {
+            if (this.thrusts.nose < 10) this.thrusts.nose++;
+            this._thrust(-(THRUST_SPEED));
+        } else if (this.thrusts.nose > 0) this.thrusts.nose--;
+
+        if (command.left) {
+            if (this.thrusts.left < 10) this.thrusts.left++;
+            this.rotation = this.rotation - .03;
+            // this._thrustRight(-(THRUST_SPEED));
+        } else if (this.thrusts.left > 0) this.thrusts.left--;
+
+        if (command.right) {
+            if (this.thrusts.right < 10) this.thrusts.right++;
+            this.rotation = this.rotation + .03;
+            // this._thrustLeft(-(THRUST_SPEED));
+        } else if (this.thrusts.right > 0) this.thrusts.right--;
+
+        this.rotation = this.rotation % (2 * Math.PI);
+
+        this.thrustLeft.alpha = this.thrusts.left / 10;
+        this.thrustRight.alpha = this.thrusts.right / 10;
+        this.thrustNose.alpha = this.thrusts.nose / 10;
+        this.thrust.alpha = this.thrusts.tail / 10;
+    }
+
     _thrust(mul = 10000) {
         const f = p2.vec2.mul([], forwardVector(this), [mul, -mul]);
+
+        // return p2.vec2.mul(r.force, this._forwardVector(r), [mul, -mul]);
+        return this.applyForce(f);
+    }
+
+    _thrustLeft(mul = 10000) {
+        const f = p2.vec2.mul([], leftVector(this), [mul, -mul]);
+
+        // return p2.vec2.mul(r.force, this._forwardVector(r), [mul, -mul]);
+        return this.applyForce(f);
+    }
+
+    _thrustRight(mul = 10000) {
+        const f = p2.vec2.mul([], rightVector(this), [mul, -mul]);
 
         // return p2.vec2.mul(r.force, this._forwardVector(r), [mul, -mul]);
         return this.applyForce(f);
