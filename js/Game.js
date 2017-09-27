@@ -19,58 +19,62 @@ const getSpeed = (velocity) => {
 // ______________________________________________________
 
 function navigate(data) {
-    // data = rocket {x, y, rotation, velocity: {x, y}}, target {x, y}, forces {x, y}
-    let forward = false, backward = false, left = false, right = false, stop = false;
+    // let forward = false, backward = false, left = false, right = false, stop = false;
 
-    let distance = getDistance(data.rocket, data.target);
-    const vel = data.rocket.velocity;
-    const speed = getSpeed(vel);
-    const gravityDirection = data.gravityDirection;
-    const targetDirection = data.targetDirection;
-    const movementDirectionToTarget = data.rocket.direction;
-    const drift = data.rocket.drift;
-    const shouldLand = distance < 400;
+    // let distance = getDistance(data.rocket, data.target);
+    // const vel = data.rocket.velocity;
+    // const speed = getSpeed(vel);
+    // const gravityDirection = data.gravityDirection;
+    // const targetDirection = data.targetDirection;
+    // const movementDirectionToTarget = data.rocket.direction;
+    // const drift = data.rocket.drift;
+    // const shouldLand = distance < 400;
 
-    const badDirection = Math.abs(targetDirection) > 0.05;
+    // const badDirection = Math.abs(targetDirection) > 0.05;
 
-    const rotateToTarget = () => {
-        if (targetDirection > 0.001) right = true;
-        else if (targetDirection < -0.001) left = true;
-    };
+    // const rotateToTarget = () => {
+    //     if (targetDirection > 0.001) right = true;
+    //     else if (targetDirection < -0.001) left = true;
+    // };
 
-    if (gravityDirection && !shouldLand) { // run away from gravity
-        if (gravityDirection >= 0 && gravityDirection < 3.1) left = true;
-        else if (gravityDirection <= 0 && gravityDirection > -3.1) right = true;
-        else forward = true;
-    } else {
-        if (!shouldLand) {
-            if (speed > 1 && badDirection) stop = true;
-            else if (badDirection) rotateToTarget();
-            else forward = true; // TODO too fast?
-        } else {
-            if (targetDirection >= 0 && targetDirection < 3.1) left = true;
-            else if (targetDirection <= 0 && targetDirection > -3.1) right = true;
-            if (!left && !right) {
-                if (speed > MAX_LANDING_VELOCITY) forward = true;
-                else if (speed < MAX_LANDING_VELOCITY - 30) backward = true;
-            }
-        }
-    }
-    return {forward, backward, left, right, stop};
+    // if (gravityDirection && !shouldLand) { // run away from gravity
+    //     if (gravityDirection >= 0 && gravityDirection < 3.1) left = true;
+    //     else if (gravityDirection <= 0 && gravityDirection > -3.1) right = true;
+    //     else forward = true;
+    // } else {
+    //     if (!shouldLand) {
+    //         if (speed > 1 && badDirection) stop = true;
+    //         else if (badDirection) rotateToTarget();
+    //         else forward = true; // TODO too fast?
+    //     } else {
+    //         if (targetDirection >= 0 && targetDirection < 3.1) left = true;
+    //         else if (targetDirection <= 0 && targetDirection > -3.1) right = true;
+    //         if (!left && !right) {
+    //             if (speed > MAX_LANDING_VELOCITY) forward = true;
+    //             else if (speed < MAX_LANDING_VELOCITY - 30) backward = true;
+    //         }
+    //     }
+    // }
+    // return {forward, backward, left, right, stop};
+// data = rocket {x, y, rotation, velocity: {x, y}}, target {x, y}, forces {x, y}
+let forward = false,
+    backward = false,
+    left = false,
+    right = false,
+    stop = false;
 
-// 
-// const targetDirection = data.targetDirection;
+const targetDirection = data.targetDirection;
 
-// const badDirection = Math.abs(targetDirection) > 0.05;
-// const rotateToTarget = () => {
-//     if (targetDirection > 0.001) right = true;
-//     else if (targetDirection < -0.001) left = true;
-// };
+const badDirection = Math.abs(targetDirection) > 0.05;
+const rotateToTarget = () => {
+    if (targetDirection > 0.001) right = true;
+    else if (targetDirection < -0.001) left = true;
+};
 
-// if (badDirection) rotateToTarget();
-// else forward = true;
+if (badDirection) rotateToTarget();
+forward = true;
 
-// return {forward, backward, left, right, stop};
+return {forward, backward, left, right, stop};
 }
 
 
@@ -148,16 +152,7 @@ class Game {
         this._initCodePanel();
 
         this.init();
-        this.renderer.render(this.stage); //TODO - show welcome message, continue on dismiss
-
-
-        // some how-to-animation
-        // setTimeout(() => { // do some button click animation instead
-             // this.hideSidePanel();//() => {
-                // this.tick();
-                //this._onWin();
-        //     });
-        // }, 1000);
+        this.renderer.render(this.stage);
     }
 
     startGame() {
@@ -170,7 +165,6 @@ class Game {
 
         TweenMax.to(this.sidePanel, 1.5, {right: 0});
         TweenMax.to(this.showPanelButton, 0.5, {opacity: 0});
-        //this.showPanelButton.style.opacity = 0;
     }
 
     hideSidePanel(callback) {
@@ -188,12 +182,12 @@ class Game {
     }
 
     _gameOver(reason) {
-        this.rocket.die();
+        this.rocket.die(this.showSidePanel.bind(this));
 
         const constraint = new p2.LockConstraint(this.target, this.rocket);
         this.world.addConstraint(constraint);
 
-        console.log("You dieded. " + reason); // TODO - fail screen
+        console.info("Rocket crash. " + reason);
     }
 
     _onWin() {

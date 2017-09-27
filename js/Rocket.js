@@ -76,7 +76,7 @@ class Rocket extends p2.Body {
 
     }
 
-    die() {
+    die(cb) {
         this.type = p2.Body.STATIC;
         this.velocity = [0,0];
         this.sprite.gotoAndPlay('explode');
@@ -85,6 +85,8 @@ class Rocket extends p2.Body {
         this.sprite.removeChild(this.thrustNose);
         this.sprite.removeChild(this.thrustLeft);
         this.sprite.removeChild(this.thrustRight);
+
+        setTimeout(cb, 1000);
     }
 
     get winAnim() {
