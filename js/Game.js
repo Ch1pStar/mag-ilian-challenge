@@ -184,8 +184,8 @@ class Game {
     _gameOver(reason) {
         this.rocket.die(this.showSidePanel.bind(this));
 
-        const constraint = new p2.LockConstraint(this.target, this.rocket);
-        this.world.addConstraint(constraint);
+        // const constraint = new p2.LockConstraint(this.target, this.rocket);
+        // this.world.addConstraint(constraint);
 
         console.info("Rocket crash. " + reason);
     }
@@ -222,12 +222,13 @@ class Game {
         this._hasInputError = false;
 
         this.rocket.position[0] = this.config.rocket.x;
-        this.rocket.position[1] = this.config.rocket.y;
+        this.rocket.position[1] = this.config.rocket.y + 5; // TODO fix in flash
         this.rocket.rotation = this.config.rocket.rotation;
-        this.rocket.mass = 1;
-        this.rocket.angle = 0;
-        this.rocket.velocity = [0, 0];
-        this.rocket.angularVelocity = 0;
+        this.rocket.restart();
+        // this.rocket.mass = 1;
+        // this.rocket.angle = 0;
+        // this.rocket.velocity = [0, 0];
+        // this.rocket.angularVelocity = 0;
 
         try {
             this.navigate = new Function('data', this.userCode.getValue()); // TODO catch user input errors
@@ -250,7 +251,7 @@ class Game {
             const bB = evt.bodyB;
 
             if (bB === this.rocket || bA === this.rocket) {
-                if (getSpeed(this.rocket.velocity) > MAX_LANDING_VELOCITY) return this._gameOver('Too fast.');
+                if (getSpeed(this.rocket.velocity) > MAX_LANDING_VELOCITY) return this._gameOver('Collided.');
                 if (bA === this.target || bB === this.target) {
                     this._checkLanding();
                 }
@@ -269,7 +270,7 @@ class Game {
         angleRadians += HALF_PI; // abcissa to ordinate based
         if ((Math.abs( Math.sin(angleRadians) - Math.sin(this.rocket.rotation)) > SIN_COS_TOLERATION) ||
             (Math.abs( Math.cos(angleRadians) - Math.cos(this.rocket.rotation)) > SIN_COS_TOLERATION)) { // OR tocket.angle?
-                return this._gameOver('Bad entry angle.');
+                return this._gameOver('Rocket tipped.');
             }
 
         this._onWin();
@@ -342,7 +343,7 @@ class Game {
             // r.velocity = [0,0];
         });
 
-        this.stage.addChild(body.overlay);
+        // this.stage.addChild(body.overlay);
 
         this.animateStage.removeChild(this.animateStage.thrust); // ?? why
         this.animateStage.removeChild(this.animateStage.thrust); // ?? why

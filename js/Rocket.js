@@ -19,14 +19,15 @@ class Rocket extends p2.Body {
             right: 0,
             tail: 0,
             nose: 0,
-        }
+        };
+        this.alive = true;
 
         this.addShape(shape);
         this.sprite = sprite;
         sprite.pivot.x = sprite.width/2;
         sprite.pivot.y = sprite.height/2;
 
-        this.overlay = new PIXI.Container();
+        // this.overlay = new PIXI.Container();
 
         const rocketImage = sprite.children[0];
         const thrustTxt = PIXI.Texture.fromImage('images/thrust.png');
@@ -72,19 +73,24 @@ class Rocket extends p2.Body {
         });
     }
 
-    init() {
-
+    restart() {
+        this.sprite.gotoAndPlay('start');
+        this.alive = true;
     }
 
     die(cb) {
-        this.type = p2.Body.STATIC;
+        this.alive = false;
+        this.thrusts = {
+            left: 0,
+            right: 0,
+            tail: 0,
+            nose: 0,
+        };
+        // this.type = p2.Body.STATIC;
         this.velocity = [0,0];
         this.sprite.gotoAndPlay('explode');
 
-        this.sprite.removeChild(this.thrust);
-        this.sprite.removeChild(this.thrustNose);
-        this.sprite.removeChild(this.thrustLeft);
-        this.sprite.removeChild(this.thrustRight);
+        this.thrust.alpha = this.thrustNose.alpha = this.thrustLeft.alpha = this.thrustRight.alpha = 0;
 
         setTimeout(cb, 1000);
     }
@@ -94,6 +100,7 @@ class Rocket extends p2.Body {
     }
 
     update(command) {
+        if (!this.alive) return;
         if (command.stop) {
             // this.velocity = [this.velocity, 0];
             p2.vec2.mul(this.velocity, this.velocity, [0.95, 0.95]);
