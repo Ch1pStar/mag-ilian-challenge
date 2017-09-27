@@ -36,7 +36,6 @@ body {
     left: -120px;
     bottom: 29px;
     position: absolute;
-    opacity: 0;
 }
 
 #side-panel #show-side-panel input {
@@ -183,7 +182,7 @@ body {
     outline: none;
 }
 
-#win-prompt form button {
+#win-prompt form button, .prompt-container button {
     -webkit-appearance: none;
     width: 280px;
     border: none;
@@ -196,6 +195,11 @@ body {
     cursor: pointer;
 }
 
+.prompt-container button {
+    transform: translateX(-50%);
+    margin-left: 50%;
+}
+
 #win-prompt form button:hover {
     background: #3dc9fc;
 }
@@ -204,9 +208,7 @@ body {
     background: #09ace3;
 }
 
-.splash-prompt-container,
-.condition-prompt-container {
-    display: none;
+.prompt-container {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -219,21 +221,12 @@ body {
     box-shadow: 2px 1px 20px rgba(0,0,0, 0.2);
 }
 
-.splash-prompt-container {
-    text-align: left;
-    padding: 40px 65px 65px 65px;
+#splash-container {
+    /*display: none;*/
 }
 
-.splash-prompt-container h3 {
-    text-align: center;
-}
-
-.splash-prompt-container h3 span {
-    display: block;
-}
-
-.splash-prompt span {
-    display: block;
+#condition-container {
+    display: none;
 }
 
 h3.title {
@@ -258,28 +251,24 @@ h3.title {
     transform: scale(1);
 }
 
-.splash-prompt,
-.condition-prompt {
+.content-container {
     max-height: 300px;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
-
-.condition-prompt .content {
+.content-container .content {
     height: 100%;
     padding-right: 15px;
 }
-
-.condition-prompt .content h3 {
+.content-container .content h3 {
     padding: 0 70px;
     text-align: center;
     margin-top: 0;
 }
-
-.condition-prompt .content .bold {
+.content-container .content .bold {
     font-weight: 700;
 }
-
-.condition-prompt .content span {
+.content-container .content span {
     display: block;
 }
 

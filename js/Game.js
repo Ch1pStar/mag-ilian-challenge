@@ -1,6 +1,6 @@
-const ALLOWED_COMMANDS = ['forward', 'backward', 'left', 'right', 'stop'];  // TODO - thrust
+const ALLOWED_COMMANDS = ['forward', 'backward', 'left', 'right', 'stop'];
 
-// _____ GLOBAL HELPER FUNCITON AVAILBALE TO PLAYER ______
+// _____ HELPER FUNCTIONS AVAILABLE TO PLAYER ______
 const toG = (r) => {
     return r * 180 / Math.PI;
 }
@@ -91,6 +91,8 @@ class Game {
         this.width = window.innerWidth;
         this.height = window.innerHeight;
         this.config = {rocket: {x: 0, y: 0, rotation: 0}};
+        this.launchButton = null, this.showPanelButton = null, this.helpButton = null, this.termsAndConditions = null;
+        this.gameStarted = false;
 
         this.rocket = null;
         this.target = null;
@@ -142,18 +144,25 @@ class Game {
         this._initRocket();
         this._initPlanets();
 
+        this._initGUI();
         this._initCodePanel();
 
         this.init();
         this.renderer.render(this.stage); //TODO - show welcome message, continue on dismiss
 
-		// some how-to-animation
+
+        // some how-to-animation
         // setTimeout(() => { // do some button click animation instead
-             this.hideSidePanel();//() => {
-                this.tick();
+             // this.hideSidePanel();//() => {
+                // this.tick();
                 //this._onWin();
         //     });
         // }, 1000);
+    }
+
+    startGame() {
+        this.gameStarted = true;
+        this.tick();
     }
 
     showSidePanel() {
@@ -192,6 +201,11 @@ class Game {
         this._userInputs.push(this.userCode.options.value);
 
         console.info("Mission complete!");
+
+        document.querySelector('.splash-btn-container').style.display = "none";
+        document.querySelector('.condition-btn-container').style.display = "none";
+        document.querySelector('#show-side-panel').style.display = "none";
+
         document.querySelector("#win-prompt").style.display = "block";
         document.getElementsByName("submission")[0].value = this._userInputs; // TODO code input
 
@@ -275,7 +289,7 @@ class Game {
 
         this._initPlanet(sun, 500);
         this.target = this._initPlanet(moon, 350);
-        this.start = this._initPlanet(earth, 400);
+        this._initPlanet(earth, 400);
     }
 
     /**
@@ -464,5 +478,35 @@ class Game {
 
         this.launchButton.addEventListener('click', this.hideSidePanel.bind(this, this.init.bind(this)));
         this.showPanelButton.addEventListener('click', this.showSidePanel.bind(this));
+    }
+
+    _initGUI() {
+        document.querySelector('.splash-btn-container').addEventListener('click', this.toggleHelp.bind(this));
+        document.querySelector('#splash-container .close').addEventListener('click', this.toggleHelp.bind(this));
+        document.querySelector('#splash-container button').addEventListener('click', this.toggleHelp.bind(this));
+        document.querySelector('.condition-btn-container').addEventListener('click', this.toggleConditions.bind(this));
+        document.querySelector('#condition-container .close').addEventListener('click', this.toggleConditions.bind(this));
+    }
+
+    toggleHelp() {
+        let howTo = document.querySelector('#splash-container');
+        howTo.classList.toggle('hidden');
+        if (howTo.classList.contains('hidden')) {
+            howTo.style.display = 'none';
+            if (!this.gameStarted) this.startGame();
+        } else {
+            howTo.style.display = 'block';
+        }
+    }
+
+    toggleConditions() {
+        let howTo = document.querySelector('#condition-container');
+        howTo.classList.toggle('hidden');
+        if (howTo.classList.contains('hidden')) {
+            howTo.style.display = 'none';
+        } else {
+            howTo.style.display = 'block';
+        }
+
     }
 }

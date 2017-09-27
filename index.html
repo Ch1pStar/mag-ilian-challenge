@@ -8,9 +8,13 @@
     <link rel="stylesheet" href="js/vendor/monokai.css">
     <link rel="stylesheet" href="styles/game.css">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/plugins/PixiPlugin.min.js"></script>
+    <!-- // <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script> -->
+    <!-- // <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script> -->
+    <!-- // <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/plugins/PixiPlugin.min.js"></script> -->
+
+    <script type="text/javascript" src="js/vendor/pixi.min.js"></script>
+    <script type="text/javascript" src="js/vendor/TweenMax.min.js"></script>
+    <script type="text/javascript" src="js/vendor/PixiPlugin.min.js"></script>
 
     <script type="text/javascript" src="js/es6-check.js"></script>
     <script type="text/javascript" src="js/vendor/pixi-animate.js"></script>
@@ -32,7 +36,7 @@
 
     <div id="game-container">
         <div id="canvas-container"></div>
-        <div id="side-panel">
+        <div id="side-panel" style="right: -460px;">
             <div class="label">Rocket navigator</div>
             <div id="code-container"></div>
             <input id="launch-button" type="button" value="LAUNCH"/>
@@ -56,9 +60,9 @@
         </form>
     </div>
 
-    <div class="splash-prompt-container">
+    <div id="splash-container" class="prompt-container">
         <h3><span>Mission:</span> Land the Rocket on Mars</h3>
-        <div class="splash-prompt">
+        <div class="content-container">
             <div class="content">
                 <p>
                     Everyone who has successfully completed the mission of the game receives an invitation to draw from specific rewards.
@@ -71,14 +75,16 @@
 
                 <span>For any technical problems, please contact us here:</span>
                 <span class="email">info@dopamine.bg</span>
+
+                <button type="submit">OK</button>
             </div>
         </div>
         <img class="close" src="images/close.png">
     </div>
 
-    <div class="condition-prompt-container">
+    <div id="condition-container" class="prompt-container hidden">
         <h3 class="title">Terms & Conditions</h3>
-        <div class="condition-prompt">
+        <div class="content-container">
             <div class="content">
                 <h3>ОБЩИ ПРАВИЛА ЗА ПРОВЕЖДАНЕ НА ИГРА „SPACE CODE“</h3>
                 <h5>Раздел 1. ОРГАНИЗАТОР</h5>
