@@ -201,7 +201,7 @@ body {
 }
 
 #win-prompt form .agreement label {
-    padding-bottom: 2px;
+    padding-bottom: 1px;
     cursor: pointer;
     font-size: 14px;
 }
