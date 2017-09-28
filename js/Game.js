@@ -201,6 +201,8 @@ class Game {
         document.querySelector("#win-prompt").style.display = "block";
         document.getElementsByName("submission")[0].value = this._userInputs; // TODO code input
 
+        document.querySelector('#agreement').addEventListener('click', this.toggleSubmit.bind(this));
+
         const constraint = new p2.LockConstraint(this.target, this.rocket);
         this.world.addConstraint(constraint);
 
@@ -479,6 +481,7 @@ class Game {
         document.querySelector('#splash-container button').addEventListener('click', this.toggleHelp.bind(this));
         document.querySelector('.condition-btn-container').addEventListener('click', this.toggleConditions.bind(this));
         document.querySelector('#condition-container .close').addEventListener('click', this.toggleConditions.bind(this));
+        document.querySelector('.conditions').addEventListener('click', this.toggleConditions.bind(this));
     }
 
     toggleHelp() {
@@ -501,5 +504,18 @@ class Game {
             howTo.style.display = 'block';
         }
 
+    }
+
+    toggleSubmit() {
+        let img = document.querySelector('.agreement').querySelector('img'),
+            btn = document.querySelector('#submit');
+
+        btn.classList.toggle('active');
+
+        if (btn.classList.contains('active')) {
+            img.style.display = 'block';
+        } else {
+            img.style.display = 'none';
+        }
     }
 }

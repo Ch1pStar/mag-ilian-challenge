@@ -229,11 +229,14 @@ body {
 
 #win-prompt form button {
     background: #466f7e;
+    pointer-events: none
 }
 
 #win-prompt form button.active {
     background: #0ac2fe;
     cursor: pointer;
+    pointer-events: auto
+
 }
 
 #win-prompt form button.active:hover {
