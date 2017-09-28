@@ -148,8 +148,8 @@ body {
     padding-top: 5px;
 }
 
-#win-prompt label {
-    padding-bottom: 6px;
+#win-prompt .title {
+    text-align: center;
 }
 
 #win-prompt form input {
@@ -170,16 +170,50 @@ body {
 }
 
 #win-prompt form input[type="email"] {
-    margin-bottom: 0;
+    margin-bottom: 70px;
 }
 
 #win-prompt form input[type="text"] {
     text-transform: uppercase;
 }
 
+#win-prompt form .agreement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#win-prompt form img {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 3px;
+    transform: translateY(-50%);
+    width: 13px;
+}
+
+#win-prompt form input[type="checkbox"] {
+    width: inherit;
+    margin: 0 12px 0 0;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#win-prompt form .agreement label {
+    padding-bottom: 2px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
 #win-prompt form input:focus,
 #win-prompt form button:focus {
     outline: none;
+}
+
+#win-prompt form .conditions {
+    color: #b0bdfe;
+    font-size: 13px;
 }
 
 #win-prompt form button, .prompt-container button {
@@ -188,23 +222,39 @@ body {
     border: none;
     border-radius: 5px;
     padding: 18px;
-    background: #0ac2fe;
     text-transform: uppercase;
-    margin-top: 35px;
+    margin-top: 20px;
     font-size: 0.94rem;
     cursor: pointer;
+}
+
+#win-prompt form button {
+    background: #466f7e;
+}
+
+#win-prompt form button:hover {
+    background: #466f7e;
+}
+
+#win-prompt form button:active {
+    background: #466f7e;
+}
+
+#win-prompt form button.active {
+    background: #0ac2fe;
 }
 
 .prompt-container button {
     transform: translateX(-50%);
     margin-left: 50%;
+    background: #0ac2fe;
 }
 
-#win-prompt form button:hover {
+#win-prompt form button.active:hover {
     background: #3dc9fc;
 }
 
-#win-prompt form button:active {
+#win-prompt form button.active:active {
     background: #09ace3;
 }
 
@@ -223,6 +273,7 @@ body {
 
 #splash-container {
     /*display: none;*/
+    text-align: center;
 }
 
 #condition-container {

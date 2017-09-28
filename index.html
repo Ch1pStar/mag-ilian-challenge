@@ -52,12 +52,16 @@
         <h1 class="title">You landed the rocket!</h1>
 
         <form method="POST" action="http://formspree.io/challenge@dopamine.bg">
-            <input name="code" placeholder="Your code">
+            <input name="code" placeholder="Your code" maxlength="8" minlength="8">
             <input type="email" name="email" placeholder="Your email">
             <input type="hidden" name="_subject" value="Hack Conf submission" />
             <input type="hidden" name="submission" value="">
-            <input type="checkbox" name="consent" value="false">Прочетох и се съгласявам с Условията на играта
-
+            <div class="agreement">
+                <img src="images/check.png">
+                <input type="checkbox" id="agreement" name="consent" value="false">
+                <label for="agreement">Прочетох и съм съгласен с Общите правила на играта</label>
+            </div>
+            <a class="conditions" href="#">Общи правила</a>
             <button type="submit">Submit</button>
         </form>
     </div>
