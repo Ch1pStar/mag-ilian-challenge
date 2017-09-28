@@ -19,44 +19,16 @@ const getSpeed = (velocity) => {
 // ______________________________________________________
 
 function navigate(data) {
-    // let forward = false, backward = false, left = false, right = false, stop = false;
+// {number} data.rocket.y
+// {number} data.rocket.rotation - ориентация на ракетата в радиани, [-π, π], 0 = нагоре
+// {number} data.rocket.velocity - скорост на ракетата, базирана на вектора на движение, пр скорост на вектор [2,3] е ~3.6
+// {number} data.rocket.direction - ъгъл в радиани между посоката на движение на ракетата и целта, в интервала [-π, π], където π нараства по часовниката стрелка ('вдясно'), 0 е липса на отклонение
+// {number} drift - ъгъл в радиани показваш отклонение от ориентацията на ракетата и посоката и на движение, [-π, π]
+// {number} data.gravityDirection - ъгъл в радиани на външна сила (гравитация), действаща на ракетата, на баса на ориентацията на ракетата, [-π, π]
+// {number} data.targetDirection - ъгъл в радиани между крайната цел и ориентацията на ракетата, [-π, π]
+// {number} data.target.x - х на центъра на крайната цел
+// {number} data.target.y - y на центъра на крайната цел
 
-    // let distance = getDistance(data.rocket, data.target);
-    // const vel = data.rocket.velocity;
-    // const speed = getSpeed(vel);
-    // const gravityDirection = data.gravityDirection;
-    // const targetDirection = data.targetDirection;
-    // const movementDirectionToTarget = data.rocket.direction;
-    // const drift = data.rocket.drift;
-    // const shouldLand = distance < 400;
-
-    // const badDirection = Math.abs(targetDirection) > 0.05;
-
-    // const rotateToTarget = () => {
-    //     if (targetDirection > 0.001) right = true;
-    //     else if (targetDirection < -0.001) left = true;
-    // };
-
-    // if (gravityDirection && !shouldLand) { // run away from gravity
-    //     if (gravityDirection >= 0 && gravityDirection < 3.1) left = true;
-    //     else if (gravityDirection <= 0 && gravityDirection > -3.1) right = true;
-    //     else forward = true;
-    // } else {
-    //     if (!shouldLand) {
-    //         if (speed > 1 && badDirection) stop = true;
-    //         else if (badDirection) rotateToTarget();
-    //         else forward = true; // TODO too fast?
-    //     } else {
-    //         if (targetDirection >= 0 && targetDirection < 3.1) left = true;
-    //         else if (targetDirection <= 0 && targetDirection > -3.1) right = true;
-    //         if (!left && !right) {
-    //             if (speed > MAX_LANDING_VELOCITY) forward = true;
-    //             else if (speed < MAX_LANDING_VELOCITY - 30) backward = true;
-    //         }
-    //     }
-    // }
-    // return {forward, backward, left, right, stop};
-// data = rocket {x, y, rotation, velocity: {x, y}}, target {x, y}, forces {x, y}
 let forward = false,
     backward = false,
     left = false,
@@ -394,7 +366,7 @@ class Game {
                 direction: this._rocketMovementToTargetAngle(),
                 drift: getSpeed(this.rocket.velocity) < 1 ? 0 : driftForceAngle
             },
-            gravityDirection: actingForceValue > 10 ? actingForceAngle : null, // ignore weak forces
+            gravityDirection: actingForceValue > 7 ? actingForceAngle : null, // ignore weak forces
             target: {x: this.target.position[0], y: this.target.position[1]},
             targetDirection: this._planetToObjectAngle(this.target.position),
         });
@@ -453,7 +425,7 @@ class Game {
 
         const rocketMovementAngle = -Math.atan2(this.rocket.velocity[1],this.rocket.velocity[0]);
 
-        return orientationBetweenAngles(rocketMovementAngle, planetAngle);    
+        return orientationBetweenAngles(rocketMovementAngle, planetAngle);
     }
 
     _initCodePanel() {
