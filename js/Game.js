@@ -19,16 +19,6 @@ const getSpeed = (velocity) => {
 // ______________________________________________________
 
 function navigate(data) {
-//ОБЪРНЕТЕ ВНИМАНИЕ ЧЕ:
-//
-// - Планетите отклоняват със своята гравитация;
-// - Е необходимо ракетата да кацне с носа навън от центъра на целта;
-// - Прекалената скорост ще доведе до разбиване на ракетата.
-//
-//
-//ИМАТЕ НЕОГРАНИЧЕН БРОЙ ОПИТИ ДА ПРИЗЕМИТЕ УСПЕШНО РАКЕТАТА!
-//
-//
 //Техническа информация:
 // - navigate(data) получава богат набор от данни, както е описано най-долу;
 // - на ракетата могат да се подават boolean команди за активиране на двигатели forward, backward, left, right, както и команда stop, която канселира действието на двигателите;
@@ -37,7 +27,7 @@ function navigate(data) {
 // - планетите имат константни гравитации с привличане равно на 30;
 // - ракетата се разбива при сблъсък със скорост над 40;
 // - ракетата трябва да кацне с отклонение до π / 12;
-// - х и у нарастват надолу и надясно;
+// - х и у нарастват надясно и надолу;
 // - на разположение са помощни функции:
 //   * toG(radians) - конвертира радиани в градуси;
 //   * getDistance(a, b) - разстояние между две точки с x и y параметри;
@@ -46,7 +36,7 @@ function navigate(data) {
 // {number} data.rocket.x
 // {number} data.rocket.y
 // {number} data.rocket.rotation - ориентация на ракетата в радиани, [-π, π], 0 = нагоре
-// {number} data.rocket.velocity - скорост на ракетата, базирана на вектора на движение, напр. скорост на вектор [2,3] е ~3.6
+// {array} data.rocket.velocity - скорост на ракетата, базирана на вектора на движение, напр. скорост на вектор [2,3] е ~3.6
 // {number} data.rocket.direction - ъгъл в радиани между посоката на движение на ракетата и целта, в интервала [-π, π], където π нараства по часовниковата стрелка ('вдясно'), 0 е липса на отклонение
 // {number} drift - ъгъл в радиани показващ отклонение от ориентацията на ракетата и посоката и на движение, [-π, π]
 // {number} data.gravityDirection - ъгъл в радиани на външна сила (гравитация), действаща на ракетата, на база на ориентацията на ракетата, [-π, π]
@@ -223,18 +213,20 @@ class Game {
         this.rocket.position[0] = this.config.rocket.x;
         this.rocket.position[1] = this.config.rocket.y + 5; // TODO fix in flash
         this.rocket.rotation = this.config.rocket.rotation;
+        this.rocket.type = p2.Body.DYNAMIC;
         this.rocket.restart();
         // this.rocket.mass = 1;
         // this.rocket.angle = 0;
-        // this.rocket.velocity = [0, 0];
+        this.rocket.velocity = [0, 0];
         // this.rocket.angularVelocity = 0;
+
 
         try {
             this.navigate = new Function('data', this.userCode.getValue()); // TODO catch user input errors
         }
         catch(e) {
             this._hasInputError = true;
-            console.error('An error has occurred!!!');
+            console.error('An error has occurred!!!', e);
         }
 
     }
@@ -365,10 +357,11 @@ class Game {
     update(delta, tick) {
         const r = this.rocket;
         const force = this.rocketActingForce;
-
         // console.log(force);
-        r.applyForce(force);
-        this.rocket.update(this.navigationOutput);
+        if (this.rocket.alive) {
+            r.applyForce(force);
+            this.rocket.update(this.navigationOutput);
+        }
     }
 
     get navigationOutput() {

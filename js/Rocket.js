@@ -86,11 +86,13 @@ class Rocket extends p2.Body {
             tail: 0,
             nose: 0,
         };
-        // this.type = p2.Body.STATIC;
+        
         this.velocity = [0,0];
         this.sprite.gotoAndPlay('explode');
 
         this.thrust.alpha = this.thrustNose.alpha = this.thrustLeft.alpha = this.thrustRight.alpha = 0;
+
+        this.type = p2.Body.STATIC;
 
         setTimeout(cb, 1000);
     }
