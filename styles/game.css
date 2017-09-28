@@ -225,29 +225,15 @@ body {
     text-transform: uppercase;
     margin-top: 20px;
     font-size: 0.94rem;
-    cursor: pointer;
 }
 
 #win-prompt form button {
     background: #466f7e;
 }
 
-#win-prompt form button:hover {
-    background: #466f7e;
-}
-
-#win-prompt form button:active {
-    background: #466f7e;
-}
-
 #win-prompt form button.active {
     background: #0ac2fe;
-}
-
-.prompt-container button {
-    transform: translateX(-50%);
-    margin-left: 50%;
-    background: #0ac2fe;
+    cursor: pointer;
 }
 
 #win-prompt form button.active:hover {
@@ -256,6 +242,12 @@ body {
 
 #win-prompt form button.active:active {
     background: #09ace3;
+}
+
+.prompt-container button {
+    transform: translateX(-50%);
+    margin-left: 50%;
+    background: #0ac2fe;
 }
 
 .prompt-container {
