@@ -280,6 +280,10 @@ h3.title {
     margin-bottom: 40px;
 }
 
+#splash-container h3 span{
+    display: block;
+}
+
 .splash-prompt-container .email {
     font-style: italic;
 }
