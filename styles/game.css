@@ -249,8 +249,6 @@ body {
 }
 
 .prompt-container button {
-    transform: translateX(-50%);
-    margin-left: 50%;
     background: #0ac2fe;
 }
 
@@ -261,9 +259,9 @@ body {
     background: #0f0932;
     transform: translate(-50%, -50%);
     font-family: Segoe UI;
-    padding: 25px 35px 65px 65px;
+    padding: 25px 35px 45px 50px;
     color: #fff;
-    max-width: 500px;
+    max-width: 680px;
     box-shadow: 2px 1px 20px rgba(0,0,0, 0.2);
 }
 
@@ -281,7 +279,7 @@ h3.title {
     margin-bottom: 40px;
 }
 
-#splash-container h3 span{
+#splash-container h2 span{
     display: block;
 }
 
@@ -303,9 +301,10 @@ h3.title {
 }
 
 .content-container {
-    max-height: 300px;
+    max-height: 350px;
     overflow-y: auto;
     overflow-x: hidden;
+    font-size: 15px;
 }
 .content-container .content {
     height: 100%;
@@ -319,8 +318,13 @@ h3.title {
 .content-container .content .bold {
     font-weight: 700;
 }
+
 .content-container .content span {
     display: block;
+}
+
+.content-container .content a {
+    color: #48a2c9
 }
 
 .splash-btn,
