@@ -208,6 +208,9 @@ class Game {
     }
 
     init() {
+        var isChrome = !!window.chrome && !!window.chrome.webstore;
+        if(!isChrome) alert('Играта е предназначена за Google Chrome 61.0.3163. Ползването на друг browser не гарантира пълна функционалност.');
+        
         this._hasInputError = false;
 
         this.rocket.position[0] = this.config.rocket.x;

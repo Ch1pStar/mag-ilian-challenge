@@ -35,6 +35,8 @@ class Planet extends p2.Body {
                 sprite.x = target[0] - sprite.width/2;
                 sprite.y = target[1] - sprite.height/2;
 
+                if (sprite.name === "sun") sprite.y += 30; // dirty fix for sun bad sprite pos and wrong collision
+
                 return true;
             }
         });
