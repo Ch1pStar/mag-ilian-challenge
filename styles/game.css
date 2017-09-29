@@ -309,12 +309,21 @@ h3.title {
 .content-container .content {
     height: 100%;
     padding-right: 15px;
+    text-align: left;
 }
 .content-container .content h3 {
     padding: 0 70px;
     text-align: center;
     margin-top: 0;
 }
+
+.content-container .content img {
+    float: left;
+    width: 212px;
+    border-radius: 5px;
+    margin: 6px 18px 10px 0;
+}
+
 .content-container .content .bold {
     font-weight: 700;
 }
@@ -325,6 +334,10 @@ h3.title {
 
 .content-container .content a {
     color: #48a2c9
+}
+
+#splash-container .email-connect {
+    text-align: center;
 }
 
 .splash-btn,
