@@ -1,4 +1,6 @@
 resources/images/*
+dist/*
+node_modules/*
 resources/stage.js
 RECOVER*
 resources/RECOVER*
