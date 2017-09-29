@@ -17,8 +17,7 @@ const getSpeed = (velocity) => {
 }
 
 // ______________________________________________________
-
-function navigate(data) {
+const START_SCRIPT = `
 //Техническа информация:
 // - navigate(data) получава богат набор от данни, както е описано най-долу;
 // - на ракетата могат да се подават boolean команди за активиране на двигатели forward, backward, left, right, както и команда stop, която канселира действието на двигателите;
@@ -62,14 +61,8 @@ if (badDirection) rotateToTarget();
 forward = true;
 
 return {forward, backward, left, right, stop};
-}
+`; //ES6 multi line strings 
 
-
-let src = navigate.toString().split('\n');
-src.shift();
-src.length -= 1;
-
-const START_SCRIPT = src.join('\n');
 const MAX_LANDING_VELOCITY = 40;
 const TOLERABLE_ANGLE_DEVIATION = Math.PI / 12; // 15 degrees
 const SIN_COS_TOLERATION = Math.sin( TOLERABLE_ANGLE_DEVIATION ); // 0.2588...
@@ -137,7 +130,7 @@ class Game {
 
         this._initGUI();
         this._initCodePanel();
-
+        
         this.init();
         this.renderer.render(this.stage);
     }
