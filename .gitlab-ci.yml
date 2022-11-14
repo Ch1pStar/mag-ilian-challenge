@@ -1,0 +1,4 @@
+include:
+  - project: 'frontend/environment'
+    ref: master
+    file: 'gitlab-ci-shared.yml'
